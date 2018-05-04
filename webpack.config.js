@@ -7,8 +7,7 @@ module.exports = {
   // This will be the entry file for all of our React code
   entry: {
     index: "./client/index.jsx",
-    movie: "./client/movie.jsx",
-    search: "./client/search.jsx"
+    movie: "./client/movie.jsx"
   },
   // This will be where the final bundle file will be outputed
   output: {

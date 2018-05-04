@@ -9,18 +9,23 @@ class Movie extends Component {
 	constructor (props) {
 		super(props);
 		// Bind our render recipe to function so we can use it in the render method
-		this.renderMovie = this.renderMovie.bind(this);
+        // this.renderMovie = this.renderMovie.bind(this);
+        this.state = {
+            searchQuery: "",
+        };
 	}
 
 	// Fetch recipes when component is mounted
 	componentDidMount () {
-		const API_URL = 'http://localhost:3000/api/movie/?list';
-		// I am setting some delay to simulate a real world request
-		setTimeout(() => { this.props.fetchMovie(API_URL); }, 1000);
+		// const API_URL = 'http://localhost:3000/api/movie/?list';
+		// // I am setting some delay to simulate a real world request
+        // setTimeout(() => { this.props.fetchMovie(API_URL); }, 1000);
+        const API_URL = '/searchMovie';
+        this.props.fetchMovie(API_URL, "RPO");
 	}
 	// Function to render our recipe
 	renderMovie () {
-		return _.map(this.props.movies, movie => {
+		return _.map(this.props.movieResult, movie => {
 			// Check if there is an image to be displayed
 			const img = movie.image ? movie.image.filename : '';
 			// Get the html for our recipe ingredients
@@ -90,18 +95,15 @@ class Movie extends Component {
 	};
 };
 
-function mapStateToProps (state, ownProps) {
-	// Things return here are showing in props for Characters
-	return {
-		movies: state.movies,
-		loading: state.loadMovies,
-	};
+function mapStateToProps(state, ownProps) {
+    // Things return here are showing in props for Characters
+    return {
+        movieResult: state.movieResult
+    };
 }
-
-// anything returned from here will end up in the props
 const mapDispatchToProps = dispatch => ({
-	// Our thunk will be mapped to this.props.fetchRecipe
-	fetchMovie: (url) => dispatch(moviesFetchData(url)),
+    // Our thunk will be mapped to this.props.fetchRecipe
+    fetchMovie: (url,searchQuery) => dispatch(moviesFetchData(url,searchQuery)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Movie);

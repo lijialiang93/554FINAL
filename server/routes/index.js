@@ -40,4 +40,25 @@ exports = module.exports = function (app) {
 		// Send the html boilerplate
 		res.send(renderFullPage());
 	});
+	app.get('/movie.html', function (req, res) {
+		// Render some simple boilerplate html
+		function renderFullPage () {
+			// Note the div class name here, we will use that as a hook for our React code
+			return `
+		<!doctype html>
+		<html>
+			<head>
+				<title>Keystone With React And Redux</title>
+			</head>
+      <body>
+        <div class="react-container">
+        </div>
+				<script src="movie.bundle.js"></script>
+			</body>
+		</html>
+		`;
+		}
+		// Send the html boilerplate
+		res.send(renderFullPage());
+	});
 };
