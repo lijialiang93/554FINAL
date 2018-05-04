@@ -15,8 +15,15 @@ exports = module.exports = function (app) {
 	app.get('/api/searchMovie', async function (req, res) {
 		let name = req.query.name;
 		let result = await movieData.getMovieByName(name);
-		return res.json({ test: result });
+		if(result!==null){
+			return res.json({ movie: result });
+		}
+		else{
+			return res.json({ movie: "NOT FOUND" });
+		}
 	});
+
+
 	// app.get('/api/recipe/', keystone.middleware.api, routes.api.recipe.list);
 	// // Set up the default app route to  http://localhost:3000/index.html
 	app.get('/index.html', function (req, res) {
@@ -32,7 +39,7 @@ exports = module.exports = function (app) {
       <body>
         <div class="react-container">
         </div>
-				<script src="bundle.js"></script>
+				<script src="index.bundle.js"></script>
 			</body>
 		</html>
 		`;

@@ -26,7 +26,7 @@ export function moviesFetchData(url, searchQuery) {
        name: searchQuery
       }
     });
-
+    
     request.then((response) => {
       dispatch(getMovieByName(response.data));
     });

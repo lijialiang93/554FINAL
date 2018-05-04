@@ -4,10 +4,7 @@ var keystone = require('keystone'),
 const exportedMethods = {
         
     async getMovieByName(name) {
-        return await Movie.model.findOne({ 'name': name });
-    },
-    async getAllMovie() {
-
+        return await Movie.model.findOne({'name': name });
     }
 }
 

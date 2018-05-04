@@ -7,9 +7,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 // Getting our combined reducers
 import reducers from './reducers/reducers';
-// And our Recipe component
-import Recipe from './containers/Recipe'
-import SearchForm from './containers/searchForm'
+import SearchIndex from './containers/SearchIndex'
 
 // Define our store
 const store = createStore(reducers, applyMiddleware(thunk));
@@ -19,7 +17,7 @@ const App = () => {
   return (
     // We will add our components here
     <div>
-      <SearchForm/>
+      <SearchIndex/>
     </div>
   );
 };
