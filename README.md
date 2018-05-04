@@ -1,4 +1,4 @@
 # 554FINAL
 
-npm run compile
+npm run compile</br>
 npm start
