@@ -1,0 +1,15 @@
+var keystone = require('keystone');
+var User = keystone.list('User');
+var Movie = keystone.list('Movie');
+exports = module.exports = function (done) {
+    new User.model({
+        name: { first: 'admin', last: 'user' },
+        email: 'admin@keystonejs.com',
+        password: 'admin',
+        canAccessKeystone: true,
+    }).save();
+
+    new Movie.model({
+        name: 'ROP'
+    }).save(done);
+};
