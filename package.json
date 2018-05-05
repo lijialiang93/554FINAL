@@ -4,22 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "seed": "node ./server/tasks/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "webpack --config webpack.config.js",
-    "start": "node index.js"
+    "start": "concurrently --kill-others-on-fail \"node index.js\" \"node worker/index.js\""
+
   },
   "author": "travelfrogs",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
+    "concurrently": "^3.5.1",
     "keystone": "^4.0.0-beta.8",
     "lodash": "^4.17.10",
+    "mongoose": "^5.0.17",
+    "node-redis-pubsub": "^2.0.0",
+    "node-uuid": "^1.4.8",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
     "react-router": "^3.0.5",
     "react-router-dom": "^4.2.2",
+    "redis": "^2.8.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0"
   },
