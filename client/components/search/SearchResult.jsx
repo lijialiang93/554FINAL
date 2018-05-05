@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { moviesFetchData } from '../../actions/actions.js';
-import { Link, hashHistory } from 'react-router';
+import SearchResultList from './SearchResultList';
 
 class SearchResult extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            match: "",
+            listOfMatchingMovies: [],
             searched: false
         };
     }
@@ -21,7 +21,7 @@ class SearchResult extends Component {
         }
         if (newProps.movieResult !== this.props.movieResult) {
             this.setState({
-                match: newProps.movieResult,
+                listOfMatchingMovies: newProps.movieResult.movie,
                 searched: true
             });
 
@@ -30,31 +30,11 @@ class SearchResult extends Component {
 
 
     render() {
-        const movie = this.state.match.movie;
-        var path;
-        if (movie != null) {
-            path = {
-                pathname: '/movieinfo',
-                query: {
-                    id: movie._id
-                }
-            }
-        } else {
-            path = {
-                pathname: '/movieinfo',
-                query: movie
-            }
-        }
-        if (this.state.searched && movie !== "NOT FOUND") {
-            return (
-                <div>
-                    {movie.name}
-                    <Link to={path} target="_blank">
-                        <img style={{ width: '300px', height: '300px' }} src={movie.image.filename}></img>
-                    </Link>
-                </div>
-            );
-            hashHistory.push(path);
+        const movies = this.state.listOfMatchingMovies;
+        //var path;
+
+        if (movies.length > 0 && this.state.searched) {
+            return <SearchResultList movieList={movies} />;
         }
         else {
             return (<div></div>);

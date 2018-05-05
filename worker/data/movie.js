@@ -8,7 +8,7 @@ const exportedMethods = {
     async getMovieByName(name) {
 
         try {
-            return await Movie.findOne({ 'name': name });
+            return await Movie.find({ 'name': name });
         } catch (error) {
             console.log(error);
         }
@@ -17,7 +17,7 @@ const exportedMethods = {
 
     async getMovieById(id) {
         try {
-            return await Movie.findOne({'_id': id });
+            return await Movie.findOne({ '_id': id });
         } catch (error) {
             console.log(error);
         }

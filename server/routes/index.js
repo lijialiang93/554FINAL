@@ -22,7 +22,6 @@ exports = module.exports = function (app) {
 					searchQuery: req.query.name
 				}
 			});
-
 			let reply = {
 				movie: response
 			};
