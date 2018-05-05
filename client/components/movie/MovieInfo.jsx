@@ -6,18 +6,21 @@ class MovieInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataVaild: false,
       movieId: null,
       movieData: null
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     var id = this.props.location.query.id;
+    var tmpData = [];
     axios
       .get("http://localhost:3000/api/searchMovieById?id=" + id)
       .then(res => {
-          console.log(res);
+        tmpData = res;
         this.setState({
+          dataVaild: true,
           movieId: id,
           movieData: res.data
         });
@@ -30,11 +33,13 @@ class MovieInfo extends Component {
     // let data = axios.get('http://localhost:3000/api/searchMovieById?id=' + id);
     //let data = moviesFetchDataById(API_URL, id);
     // console.log(id);
-    console.log(this.state.movieData);
+    if (this.state.dataVaild == false) {
+        return false;
+    }
     //var data = this.props.location.query;
-    let data = this.state.movieData;
+    let data = this.state.movieData.movie;
+    console.log(data);
 
-    if (data != null) {
     const img = data.image ? data.image.filename : "";
     function createMarkupForDirector() {
       if (data.director) {
@@ -62,7 +67,6 @@ class MovieInfo extends Component {
       } else {
         return;
       }
-    }
     }
 
     return (
