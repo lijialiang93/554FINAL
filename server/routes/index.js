@@ -15,10 +15,10 @@ exports = module.exports = function (app) {
 	app.get('/api/searchMovie', async function (req, res) {
 		let name = req.query.name;
 		let result = await movieData.getMovieByName(name);
-		if(result!==null){
+		if (result !== null) {
 			return res.json({ movie: result });
 		}
-		else{
+		else {
 			return res.json({ movie: "NOT FOUND" });
 		}
 	});
@@ -26,7 +26,7 @@ exports = module.exports = function (app) {
 
 	// app.get('/api/recipe/', keystone.middleware.api, routes.api.recipe.list);
 	// // Set up the default app route to  http://localhost:3000/index.html
-	app.get('/index.html', function (req, res) {
+	app.get('/', function (req, res) {
 		// Render some simple boilerplate html
 		function renderFullPage() {
 			// Note the div class name here, we will use that as a hook for our React code
@@ -49,7 +49,7 @@ exports = module.exports = function (app) {
 	});
 	app.get('/movie.html', function (req, res) {
 		// Render some simple boilerplate html
-		function renderFullPage () {
+		function renderFullPage() {
 			// Note the div class name here, we will use that as a hook for our React code
 			return `
 		<!doctype html>

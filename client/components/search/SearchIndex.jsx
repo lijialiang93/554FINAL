@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SearchForm from './searchForm';
-import SearchResult from './searchResult';
+import SearchForm from './SearchForm';
+import SearchResult from './SearchResult';
 
 class SearchIndex extends Component {
     constructor(props) {

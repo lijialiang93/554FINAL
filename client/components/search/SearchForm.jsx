@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { moviesFetchData } from '../actions/actions.js';
 
 class SearchForm extends Component {
     constructor(props) {

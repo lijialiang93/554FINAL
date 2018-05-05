@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { moviesFetchData } from '../actions/actions.js';
+import { moviesFetchData } from '../../actions/actions.js';
+import { Link, hashHistory } from 'react-router';
 
 class SearchResult extends Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class SearchResult extends Component {
             searched: false
         };
     }
+
 
     componentWillReceiveProps(newProps) {
         if (newProps.movieName && newProps.movieName !== this.props.movieName) {
@@ -29,18 +31,24 @@ class SearchResult extends Component {
 
     render() {
         const movie = this.state.match.movie;
+        const path = {
+            pathname: '/movieinfo',
+            query: movie
+        }
         if (this.state.searched && movie !== "NOT FOUND") {
             return (
                 <div>
                     {movie.name}
-                    <img style={{ width: '300px', height: '300px' }} src={movie.image.filename}></img>
+                    <Link to={path} target="_blank">
+                        <img style={{ width: '300px', height: '300px' }} src={movie.image.filename}></img>
+                    </Link>
                 </div>
             );
+            hashHistory.push(path);
         }
         else {
             return (<div></div>);
         }
-
     }
 }
 
