@@ -23,6 +23,17 @@ exports = module.exports = function (app) {
 		}
 	});
 
+	app.get('/api/searchMovieById', async (req, res) => {
+		let id = req.query.id;
+		let result = await movieData.getMovieById(id);
+		if (result !== null) {
+			return res.json({ movie: result });
+		}
+		else {
+			return res.json({ movie: "NOT FOUND" });
+		}
+	});
+
 
 	// app.get('/api/recipe/', keystone.middleware.api, routes.api.recipe.list);
 	// // Set up the default app route to  http://localhost:3000/index.html

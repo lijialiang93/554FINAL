@@ -31,9 +31,19 @@ class SearchResult extends Component {
 
     render() {
         const movie = this.state.match.movie;
-        const path = {
-            pathname: '/movieinfo',
-            query: movie
+        var path;
+        if (movie != null) {
+            path = {
+                pathname: '/movieinfo',
+                query: {
+                    id: movie._id
+                }
+            }
+        } else {
+            path = {
+                pathname: '/movieinfo',
+                query: movie
+            }
         }
         if (this.state.searched && movie !== "NOT FOUND") {
             return (
