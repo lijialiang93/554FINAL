@@ -9,6 +9,7 @@ keystone.init({
 	'static': [
 		'./server/public/js/',
 		'./server/public/img/movie',
+		'./server/public/img/avatar',
 	],
 	// Keystone includes an updates framework,
 	// which you can enable by setting the auto update option to true.

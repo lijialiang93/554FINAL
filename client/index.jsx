@@ -10,7 +10,8 @@ import thunk from 'redux-thunk';
 import reducers from './reducers/reducers';
 import SearchIndex from './components/search/SearchIndex';
 import MovieInfo from './components/movie/MovieInfo';
-import App from './components/App'
+import App from './components/App';
+import Register from './components/user/Register';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 
@@ -26,6 +27,7 @@ ReactDOM.render(
     <Router history={hashHistory}>
       <Route path="/" component={App}></Route>
       <Route path="/movieinfo" component={MovieInfo}></Route>
+      <Route path="/user/register" component={Register}></Route>
     </Router>
   </Provider>,
   document.querySelector('.react-container'));

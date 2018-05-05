@@ -1,5 +1,6 @@
 // We will need to require Keystone first
 var keystone = require('keystone');
+var User = keystone.list('User');
 // Then to get access to our API route we will use importer
 var importRoutes = keystone.importer(__dirname);
 // And finally set up the api on a route
@@ -62,6 +63,23 @@ exports = module.exports = function (app) {
 			console.log(error);
 		}
 		
+	});
+
+	app.post('/api/userRegister', async (req, res) => {
+		try {
+			console.log(req.body);
+			let userData = req.body.data;
+			console.log(req.body);
+			new User.model({
+				name: { first: userData.firstName, last: userData.lastName },
+				email: userData.email,
+				password: userData.password,
+				canAccessKeystone: false,
+			}).save();
+			res.json({ message: "REGISTER SUCCESSFUL!"});
+		} catch (error) {
+			console.log(error);
+		}
 	});
 
 
