@@ -3,35 +3,66 @@ var keystone = require('keystone');
 // Then to get access to our API route we will use importer
 var importRoutes = keystone.importer(__dirname);
 // And finally set up the api on a route
-var routes = {
-	api: importRoutes('./api'),
-};
-const data = require("../data");
-const movieData = data.movie;
+// var routes = {
+// 	api: importRoutes('./api'),
+// };
+const redisConnection = require("./redis-connection");
+const nrpSender = require("./nrp-sender-shim");
 
 // Export our app routes
 exports = module.exports = function (app) {
 	// Get access to the API route in our app
 	app.get('/api/searchMovie', async function (req, res) {
-		let name = req.query.name;
-		let result = await movieData.getMovieByName(name);
-		if (result !== null) {
-			return res.json({ movie: result });
+		try {
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "send-message-with-reply",
+				data: {
+					type: "getMovieByName",
+					searchQuery: req.query.name
+				}
+			});
+
+			let reply = {
+				movie: response
+			};
+			if (reply.movie !== null) {
+				res.json(reply);
+			}
+			else {
+				return res.json({ movie: "NOT FOUND" });
+			}
+
+		} catch (error) {
+			console.log(error);
 		}
-		else {
-			return res.json({ movie: "NOT FOUND" });
-		}
+
 	});
 
 	app.get('/api/searchMovieById', async (req, res) => {
-		let id = req.query.id;
-		let result = await movieData.getMovieById(id);
-		if (result !== null) {
-			return res.json({ movie: result });
+
+		try {
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "send-message-with-reply",
+				data: {
+					type: "getMovieById",
+					searchQuery: req.query.id
+				}
+			});
+			let reply = {
+				movie: response
+			};
+			if (reply.movie !== null) {
+				res.json(reply);
+			}
+			else {
+				return res.json({ movie: "NOT FOUND" });
+			}
+		} catch (error) {
+			console.log(error);
 		}
-		else {
-			return res.json({ movie: "NOT FOUND" });
-		}
+		
 	});
 
 
@@ -58,25 +89,25 @@ exports = module.exports = function (app) {
 		// Send the html boilerplate
 		res.send(renderFullPage());
 	});
-	app.get('/movie.html', function (req, res) {
-		// Render some simple boilerplate html
-		function renderFullPage() {
-			// Note the div class name here, we will use that as a hook for our React code
-			return `
-		<!doctype html>
-		<html>
-			<head>
-				<title>Keystone With React And Redux</title>
-			</head>
-      <body>
-        <div class="react-container">
-        </div>
-				<script src="movie.bundle.js"></script>
-			</body>
-		</html>
-		`;
-		}
-		// Send the html boilerplate
-		res.send(renderFullPage());
-	});
+	// app.get('/movie.html', function (req, res) {
+	// 	// Render some simple boilerplate html
+	// 	function renderFullPage() {
+	// 		// Note the div class name here, we will use that as a hook for our React code
+	// 		return `
+	// 	<!doctype html>
+	// 	<html>
+	// 		<head>
+	// 			<title>Keystone With React And Redux</title>
+	// 		</head>
+    //   <body>
+    //     <div class="react-container">
+    //     </div>
+	// 			<script src="movie.bundle.js"></script>
+	// 		</body>
+	// 	</html>
+	// 	`;
+	// 	}
+	// 	// Send the html boilerplate
+	// 	res.send(renderFullPage());
+	// });
 };
