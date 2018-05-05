@@ -8,7 +8,7 @@ const exportedMethods = {
     async getMovieByName(name) {
 
         try {
-            return await Movie.find({ 'name': name });
+            return await Movie.find({ 'name':{ $regex : name }});
         } catch (error) {
             console.log(error);
         }

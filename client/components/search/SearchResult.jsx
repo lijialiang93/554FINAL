@@ -31,9 +31,8 @@ class SearchResult extends Component {
 
     render() {
         const movies = this.state.listOfMatchingMovies;
-        //var path;
-
         if (movies.length > 0 && this.state.searched) {
+            console.log(movies);
             return <SearchResultList movieList={movies} />;
         }
         else {
