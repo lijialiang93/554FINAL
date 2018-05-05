@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import xss from 'xss';
 import { connect } from "react-redux";
 import { moviesFetchDataById } from "../../actions/actions";
 class MovieInfo extends Component {
@@ -38,13 +39,12 @@ class MovieInfo extends Component {
     }
     //var data = this.props.location.query;
     let data = this.state.movieData.movie;
-    console.log(data);
 
     const img = data.image ? data.image.filename : "";
     function createMarkupForDirector() {
       if (data.director) {
         return {
-          __html: data.director
+          __html: xss(data.director)
         };
       } else {
         return;
@@ -53,7 +53,7 @@ class MovieInfo extends Component {
     function createMarkupForStars() {
       if (data.stars) {
         return {
-          __html: data.stars
+          __html: xss(data.stars)
         };
       } else {
         return;
@@ -62,7 +62,7 @@ class MovieInfo extends Component {
     function createMarkupForStoryline() {
       if (data.storyline) {
         return {
-          __html: data.storyline
+          __html: xss(data.storyline)
         };
       } else {
         return;

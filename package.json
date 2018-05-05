@@ -21,7 +21,8 @@
     "react-router": "^3.0.5",
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "xss": "^0.3.8"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
