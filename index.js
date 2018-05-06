@@ -25,6 +25,7 @@ keystone.init({
 	'user model': 'User',
 	// The encryption key to use for your cookies.
 	'cookie secret': '6D61822FBEAED8635A4A52241FEC3',
+	'signout redirect' :"http://localhost:3000"
 });
 
 // Load your project's Models

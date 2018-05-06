@@ -13,8 +13,8 @@ import MovieInfo from './components/movie/MovieInfo';
 import App from './components/App';
 import Register from './components/user/Register';
 import SignIn from './components/user/SignInPage';
-import SignOut from './components/user/SignOut';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import Nav from './components/nav/Nav';
 
 
 
@@ -31,7 +31,6 @@ ReactDOM.render(
       <Route path="/movieinfo" component={MovieInfo}></Route>
       <Route path="/user/register" component={Register}></Route>
       <Route path="/user/signin" component={SignIn}></Route>
-      <Route path="/user/signout" component={SignOut}></Route>
     </Router>
   </Provider>,
   document.querySelector('.react-container'));

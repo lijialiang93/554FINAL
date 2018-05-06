@@ -48,7 +48,7 @@ class Nav extends Component {
             return (
                 <div>Logged In!
                 <br/>
-                <Link to={signOutPath}>Sign Out</Link>
+                <a href="http://localhost:3000/keystone/signout">Sign Out</a>
                 </div>
             );
         }

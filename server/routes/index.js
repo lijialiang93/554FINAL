@@ -47,11 +47,7 @@ function signin(req, res) {
 	});
 }
 
-function signout (req,res) {
-	keystone.session.signout(req, res, function() {
-		res.json({signedout: true});
-	})
-}
+
 
 function checkAuth(req, res, next) {
 	if (req.user) return next();
@@ -151,7 +147,6 @@ exports = module.exports = function (app) {
 
 	app.get('/api/userStatusCheck', checkUserStatus);
 	app.post('/api/userSignIn', signin);
-	app.get('/api/userSignOut', signout);
 	app.all('./api/userSign*', checkAuth);
 
 	app.get('/', function (req, res) {
@@ -162,8 +157,8 @@ exports = module.exports = function (app) {
 			<head>
 				<title>Keystone With React And Redux</title>
 			</head>
-      <body>
-        <div class="react-container">
+        <body>
+       		 <div class="react-container">
         </div>
 				<script src="index.bundle.js"></script>
 			</body>
