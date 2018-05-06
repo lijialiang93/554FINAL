@@ -67,16 +67,30 @@ exports = module.exports = function (app) {
 
 	app.post('/api/userRegister', async (req, res) => {
 		try {
-			console.log(req.body);
 			let userData = req.body.data;
-			console.log(req.body);
-			new User.model({
-				name: { first: userData.firstName, last: userData.lastName },
-				email: userData.email,
-				password: userData.password,
-				canAccessKeystone: false,
-			}).save();
-			res.json({ email: userData.email, message: "REGISTRATION SUCCESSFUL!" });
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "user-data-with-reply",
+				data: {
+					type: "getUserByEmail",
+					searchQuery: userData.email
+				}
+			});
+			let reply = {
+				user: response
+			};
+			if (reply == null){
+				new User.model({
+					name: { first: userData.firstName, last: userData.lastName },
+					email: userData.email,
+					password: userData.password,
+					canAccessKeystone: false,
+				}).save();
+				res.json({ email: userData.email, message: "REGISTRATION SUCCESSFUL!" });
+			}
+			else {
+				res.json({ email: userData.email, message: "has already existed in the system!" })
+			}
 		} catch (error) {
 			console.log(error);
 		}
