@@ -79,7 +79,7 @@ exports = module.exports = function (app) {
 			let reply = {
 				user: response
 			};
-			if (reply == null){
+			if (reply.user.length == 0){
 				new User.model({
 					name: { first: userData.firstName, last: userData.lastName },
 					email: userData.email,
