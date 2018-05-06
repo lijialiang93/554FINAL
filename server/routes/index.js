@@ -10,6 +10,59 @@ var importRoutes = keystone.importer(__dirname);
 const redisConnection = require("./redis-connection");
 const nrpSender = require("./nrp-sender-shim");
 
+function signin(req, res) {
+  
+	if (!req.body.username || !req.body.password) return res.json({ success: false });
+	
+	User.model.findOne({ email: req.body.username }).exec(function(err, user) {
+	  
+	  if (err || !user) {
+		return res.json({
+		  success: false,
+		  session: false,
+		  message: (err && err.message ? err.message : false) || 'Sorry, there was an issue signing you in, please try again.'
+		});
+	  }
+	  
+	  keystone.session.signin({ email: user.email, password: req.body.password }, req, res, function(user) {
+		
+		return res.json({
+		  success: true,
+		  session: true,
+		  date: new Date().getTime(),
+		  userId: user.id,
+		  email: user.email
+		});
+		
+	  }, function(err) {
+		
+		return res.json({
+		  success: true,
+		  session: false,
+		  message: (err && err.message ? err.message : false) || 'Sorry, there was an issue signing you in, please try again.'
+		});
+		
+	  });
+	  
+	});
+}
+
+function signout (req,res) {
+	keystone.session.signout(req, res, function() {
+		res.json({signedout: true});
+	})
+}
+
+function checkAuth(req, res, next) {
+	if (req.user) return next();
+	return res.status(403).json({ 'error': 'no access' });
+}
+
+function checkUserStatus(req, res) {
+	if (req.user) return res.json({signedIn: true});
+	else return res.json({signedIn: false});
+}
+
 // Export our app routes
 exports = module.exports = function (app) {
 	// Get access to the API route in our app
@@ -96,13 +149,13 @@ exports = module.exports = function (app) {
 		}
 	});
 
+	app.get('/api/userStatusCheck', checkUserStatus);
+	app.post('/api/userSignIn', signin);
+	app.get('/api/userSignOut', signout);
+	app.all('./api/userSign*', checkAuth);
 
-	// app.get('/api/recipe/', keystone.middleware.api, routes.api.recipe.list);
-	// // Set up the default app route to  http://localhost:3000/index.html
 	app.get('/', function (req, res) {
-		// Render some simple boilerplate html
 		function renderFullPage() {
-			// Note the div class name here, we will use that as a hook for our React code
 			return `
 		<!doctype html>
 		<html>
@@ -120,25 +173,4 @@ exports = module.exports = function (app) {
 		// Send the html boilerplate
 		res.send(renderFullPage());
 	});
-	// app.get('/movie.html', function (req, res) {
-	// 	// Render some simple boilerplate html
-	// 	function renderFullPage() {
-	// 		// Note the div class name here, we will use that as a hook for our React code
-	// 		return `
-	// 	<!doctype html>
-	// 	<html>
-	// 		<head>
-	// 			<title>Keystone With React And Redux</title>
-	// 		</head>
-    //   <body>
-    //     <div class="react-container">
-    //     </div>
-	// 			<script src="movie.bundle.js"></script>
-	// 		</body>
-	// 	</html>
-	// 	`;
-	// 	}
-	// 	// Send the html boilerplate
-	// 	res.send(renderFullPage());
-	// });
 };

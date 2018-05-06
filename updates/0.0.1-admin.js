@@ -9,6 +9,13 @@ exports = module.exports = function (done) {
         canAccessKeystone: true,
     }).save();
 
+    new User.model({
+        name: { first: 'test', last: 'user' },
+        email: 'user@keystonejs.com',
+        password: 'user',
+        canAccessKeystone: false,
+    }).save();
+
     new Movie.model({
         name: 'RPO',
         state: 'published',

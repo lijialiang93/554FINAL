@@ -12,6 +12,8 @@ import SearchIndex from './components/search/SearchIndex';
 import MovieInfo from './components/movie/MovieInfo';
 import App from './components/App';
 import Register from './components/user/Register';
+import SignIn from './components/user/SignInPage';
+import SignOut from './components/user/SignOut';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 
@@ -28,6 +30,8 @@ ReactDOM.render(
       <Route path="/" component={App}></Route>
       <Route path="/movieinfo" component={MovieInfo}></Route>
       <Route path="/user/register" component={Register}></Route>
+      <Route path="/user/signin" component={SignIn}></Route>
+      <Route path="/user/signout" component={SignOut}></Route>
     </Router>
   </Provider>,
   document.querySelector('.react-container'));

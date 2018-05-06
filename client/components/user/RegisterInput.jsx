@@ -60,7 +60,6 @@ class RegisterInput extends Component {
                 <input
                     type="text"
                     value={this.state.firstName}
-                    // value=""
                     onChange={(e) => { this.onfirstNameChange(e) }}
                     id="firstName"
                 />
@@ -71,7 +70,6 @@ class RegisterInput extends Component {
                 <input
                     type="text"
                     value={this.state.lastName}
-                    //value=""
                     onChange={(e) => { this.onlastNameChange(e) }}
                     id="lastName"
                 />
@@ -82,7 +80,6 @@ class RegisterInput extends Component {
                 <input
                     type="password"
                     value={this.state.password}
-                    //value=""
                     onChange={(e) => { this.onPasswordChange(e) }}
                     id="password"
                 />
@@ -93,7 +90,6 @@ class RegisterInput extends Component {
                 <input
                     type="text"
                     value={this.state.email}
-                    //value=""
                     onChange={(e) => { this.onEmailChange(e) }}
                     id="email"
                 />

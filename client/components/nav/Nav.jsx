@@ -1,24 +1,57 @@
 import React, { Component } from "react";
 import { Link, hashHistory, Router } from 'react-router';
+import axios from 'axios';
 import Register from '../user/Register';
 
 class Nav extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            login: false,
+            isLoggedIn: sessionStorage.getItem('loggedIn') === 'true'
+        };
+    }
 
+    componentDidMount() {
+        axios.get("http://localhost:3000/api/userStatusCheck").then(res => {
+            console.log(res);
+            this.setState({
+                isLoggedIn: res.data.signedIn
+            });
+            sessionStorage.setItem('loggedIn', this.state.isLoggedIn);
+        });
     }
 
     render() {
-        let path = {
+        console.log(this.state);
+        let signInPath = {
+            pathname: '/user/signin',
+        };
+        let registerPath = {
             pathname: '/user/register',
         };
+        let signOutPath = {
+            pathname: '/user/signout',
+        };
+        if (this.state.isLoggedIn == false){
         return (
             <nav>
                 <a href="http://localhost:3000/keystone/signin" target="_blank">Log in</a>
-                <Link to={path}>Register</Link>
+                <Link to={signInPath}>Sign In</Link>
+                <Link to={registerPath}>Register</Link>
             </nav>
         )
-        hashHistory.push(path);
+        hashHistory.push(signInPath);
+        hashHistory.push(registerPath);
+        }
+        else {
+            return (
+                <div>Logged In!
+                <br/>
+                <Link to={signOutPath}>Sign Out</Link>
+                </div>
+            );
+        }
 
     }
 }
