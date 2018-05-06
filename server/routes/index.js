@@ -76,7 +76,7 @@ exports = module.exports = function (app) {
 				password: userData.password,
 				canAccessKeystone: false,
 			}).save();
-			res.json({ message: "REGISTER SUCCESSFUL!"});
+			res.json({ email: userData.email, message: "REGISTRATION SUCCESSFUL!" });
 		} catch (error) {
 			console.log(error);
 		}

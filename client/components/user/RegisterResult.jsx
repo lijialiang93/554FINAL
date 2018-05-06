@@ -8,20 +8,22 @@ class RegisterResult extends Component {
 
         this.state = {
             result: "",
+            email: "",
             success: false
         };
     }
 
 
     componentWillReceiveProps(newProps) {
-        if (newProps.data) {
+        if (newProps.data != this.props.data) {
             const API_URL = '/userRegister';
             this.props.fetchRegisterResult(API_URL, newProps.data);
         }
-        if (newProps.registerResult != null) {
+        if (newProps.registerResult != this.state.result) {
 
             this.setState({
                 result: newProps.registerResult.message,
+                email: newProps.registerResult.email,
                 success: true
             });
 
@@ -31,10 +33,9 @@ class RegisterResult extends Component {
 
     render() {
         const renderResult = this.state.result;
-        if (renderResult != "" && this.state.searched) {
-            console.log(renderResult);
+        if (renderResult != "" && this.state.success) {
             return (
-                <div>{renderResult}</div>
+                <div>{this.state.email + renderResult}</div>
             );
         }
         else {
