@@ -33,27 +33,33 @@ class PopularMovie extends Component {
         else {
             return (
                 <div className="bg-primary">
-                    <h1>Popular Movies</h1>
-                    {popularList.map(movie => {
-                        let path = {
-                            pathname: '/movieinfo',
-                            query: {
-                                id: movie._id
+                    <div>
+                        <h1>Popular Movies</h1>
+                    </div>
+                    <div className="row">
+                        {popularList.map(movie => {
+                            let path = {
+                                pathname: '/movieinfo',
+                                query: {
+                                    id: movie._id
+                                }
                             }
-                        }
-                        return (
-                            <div key={movie._id} className="col-sm-12 col-md-6 col-lg-4">
-                                <div className="card mb-3 text-center">
-                                    <Link to={path} target="_blank">
-                                        <img style={{ width: '300px', height: '300px' }} src={movie.image.filename}></img>
-                                    </Link>
-                                    <div className="card-block">
-                                        <p className="card-title">{movie.name}</p>
+                            return (
+                                <div key={movie._id} className="col-4">
+                                    <div className="card mb-3 text-center">
+                                        <Link to={path} target="_blank">
+                                            <img style={{ width: '300px', height: '300px' }} src={movie.image.filename}></img>
+                                        </Link>
+                                        <div className="card-block">
+                                            <p className="card-title">{movie.name}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>);
-                             hashHistory.push(path);
-                    })}
+
+                            );
+                            hashHistory.push(path);
+                        })}
+                    </div>
                 </div>
             );
         }

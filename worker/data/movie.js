@@ -17,7 +17,7 @@ const exportedMethods = {
     async getMovieByName(name) {
 
         try {
-            return await Movie.find({ 'name':{ $regex : name }});
+            return await Movie.find({ 'name':{ $regex : new RegExp(name, "i") }});
         } catch (error) {
             console.log(error);
         }

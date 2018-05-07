@@ -70,7 +70,7 @@ exports = module.exports = function (app) {
 				data: {
 					type: "getPopularMovies",
 					//number of popular movie
-					searchQuery: 1
+					searchQuery: 2
 				}
 			});
 			let reply = {
