@@ -30,7 +30,7 @@ class SignInResult extends Component {
                 email: newProps.loginResult.email
             });
             sessionStorage.setItem("loggedIn", true);
-
+            sessionStorage.setItem("currentUser", newProps.loginResult.email);
         }
     }
 
