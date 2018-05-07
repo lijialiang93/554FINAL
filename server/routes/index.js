@@ -3,6 +3,8 @@ var keystone = require('keystone');
 var User = keystone.list('User');
 // Then to get access to our API route we will use importer
 var importRoutes = keystone.importer(__dirname);
+// ImageMagick
+var im = require('imagemagick');
 // And finally set up the api on a route
 // var routes = {
 // 	api: importRoutes('./api'),
@@ -149,11 +151,20 @@ exports = module.exports = function (app) {
 			let reply = {
 				user: response
 			};
+			// resize image
+			im.resize({
+				srcData: userData.selectedImage,
+				width:   256,
+				height: 256
+			}, function(err){
+				if (err) throw err
+			});
 			if (reply.user.length == 0){
 				new User.model({
 					name: { first: userData.firstName, last: userData.lastName },
 					email: userData.email,
 					password: userData.password,
+					image: userData.selectedImage,
 					canAccessKeystone: false,
 				}).save();
 				res.json({ email: userData.email, message: "REGISTRATION SUCCESSFUL!" });
