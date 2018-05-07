@@ -6,8 +6,7 @@ class RegisterInput extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: "",
-            lastName: "",
+            nickname: "",
             password: "",
             email: "",
             photoName: "",
@@ -19,10 +18,9 @@ class RegisterInput extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        if (this.state.firstName && this.state.lastName && this.state.password && this.state.email && this.state.selectedImage) {
+        if (this.state.nickname && this.state.password && this.state.email && this.state.selectedImage) {
             let userData = {
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
+                nickname: this.state.nickname,
                 password: this.state.password,
                 email: this.state.email,
                 photoName: this.state.email+ "_photo",
@@ -32,15 +30,9 @@ class RegisterInput extends Component {
         }
     };
 
-    onfirstNameChange(e) {
+    onNicknameChange(e) {
         this.setState({
-            firstName: e.target.value
-        });
-    };
-
-    onlastNameChange(e) {
-        this.setState({
-            lastName: e.target.value
+            nickname: e.target.value
         });
     };
 
@@ -79,24 +71,14 @@ class RegisterInput extends Component {
         return (
             <form encType="multipart/form-data" onSubmit={(e) => { this.onSubmit(e) }} >
 
-                <label htmlFor="firstName">
-                    First Name:
+                <label htmlFor="nickname">
+                    Nickname:
                     </label>
                 <input
                     type="text"
-                    value={this.state.firstName}
-                    onChange={(e) => { this.onfirstNameChange(e) }}
-                    id="firstName"
-                />
-                <br/>
-                <label htmlFor="lastName">
-                    Last Name:
-                    </label>
-                <input
-                    type="text"
-                    value={this.state.lastName}
-                    onChange={(e) => { this.onlastNameChange(e) }}
-                    id="lastName"
+                    value={this.state.nickname}
+                    onChange={(e) => { this.onNicknameChange(e) }}
+                    id="nickname"
                 />
                 <br/>
                 <label htmlFor="password">

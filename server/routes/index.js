@@ -140,6 +140,7 @@ exports = module.exports = function (app) {
 	app.post('/api/userRegister', async (req, res) => {
 		try {
 			let userData = req.body.data;
+			console.log(userData);
 			let response = await nrpSender.sendMessage({
 				redis: redisConnection,
 				eventName: "user-data-with-reply",
@@ -161,7 +162,7 @@ exports = module.exports = function (app) {
 			});
 			if (reply.user.length == 0){
 				new User.model({
-					name: { first: userData.firstName, last: userData.lastName },
+					nickname: userData.nickname,
 					email: userData.email,
 					password: userData.password,
 					image: userData.selectedImage,
@@ -179,7 +180,7 @@ exports = module.exports = function (app) {
 
 	app.get('/api/userStatusCheck', checkUserStatus);
 	app.post('/api/userSignIn', signin);
-	app.all('./api/userSign*', checkAuth);
+	app.all('/api/userSign*', checkAuth);
 
 	app.get('/', function (req, res) {
 		function renderFullPage() {
