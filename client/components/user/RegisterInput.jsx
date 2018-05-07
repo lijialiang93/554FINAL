@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 var $ = require ('jquery')
 
 class RegisterInput extends Component {
@@ -11,7 +10,7 @@ class RegisterInput extends Component {
             email: "",
             photoName: "",
             fileName: "",
-            selectedImage: "",
+            selectedImage: {},
             result: null
         };
     }
@@ -59,7 +58,7 @@ class RegisterInput extends Component {
                 $('#preview')
                     .attr('src', e.target.result)
                     .width(150)
-                    .height(200);;
+                    .height(200);
             };
             reader.readAsDataURL(e.target.files[0]);
         }
