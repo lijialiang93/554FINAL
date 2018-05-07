@@ -75,6 +75,10 @@ Movie.add({
         wysiwyg: true,
         height: 500,
     },
+    popularity: {
+        type: Number,
+        wysiwyg: false
+    },
 });
 
 // Setting the default order of the columns on the admin tab

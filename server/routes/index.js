@@ -62,6 +62,27 @@ function checkUserStatus(req, res) {
 // Export our app routes
 exports = module.exports = function (app) {
 	// Get access to the API route in our app
+	app.get('/api/getPopular', async function(req, res){
+		try {
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "send-message-with-reply",
+				data: {
+					type: "getPopularMovies",
+					//number of popular movie
+					searchQuery: 1
+				}
+			});
+			let reply = {
+				popular: response
+			};
+	
+			res.json(reply);
+
+		} catch (error) {
+			console.log(error);
+		}
+	}),
 	app.get('/api/searchMovie', async function (req, res) {
 		try {
 			let response = await nrpSender.sendMessage({
@@ -156,6 +177,7 @@ exports = module.exports = function (app) {
 		<html>
 			<head>
 				<title>Keystone With React And Redux</title>
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 			</head>
         <body>
        		 <div class="react-container">

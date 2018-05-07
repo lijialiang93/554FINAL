@@ -29,7 +29,8 @@ exports = module.exports = function (done) {
         mpaa: 'PG-13',
         runningTime: 140,
         stars: '<p>22</p>',
-        storyline: '<p>3333</p>'
+        storyline: '<p>3333</p>',
+        popularity:1
     }).save();
 
     new Movie.model({
@@ -45,6 +46,7 @@ exports = module.exports = function (done) {
         mpaa: 'PG-13',
         runningTime: 140,
         stars: '<p>22</p>',
-        storyline: '<p>3333</p>'
+        storyline: '<p>3333</p>',
+        popularity:0
     }).save(done);
 };

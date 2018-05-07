@@ -33,6 +33,14 @@ redisConnection.on("send-message-with-reply:request:*", async (message, channel)
                 eventName: eventName
             });
             break;
+        case "getPopularMovies":
+            movieResult = await movieData.getPopularMovies(searchQuery);
+            redisConnection.emit(successEvent, {
+                requestId: requestId,
+                data: movieResult,
+                eventName: eventName
+            });
+            break;
         default:
             break;
     }
