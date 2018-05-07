@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+var $ = require ('jquery')
 
 class RegisterInput extends Component {
     constructor(props) {
@@ -9,18 +10,23 @@ class RegisterInput extends Component {
             lastName: "",
             password: "",
             email: "",
+            photoName: "",
+            fileName: "",
+            selectedImage: "",
             result: null
         };
     }
 
     onSubmit(e) {
         e.preventDefault();
-        if (this.state.firstName && this.state.lastName && this.state.password && this.state.email) {
+        if (this.state.firstName && this.state.lastName && this.state.password && this.state.email && this.state.selectedImage) {
             let userData = {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
                 password: this.state.password,
-                email: this.state.email
+                email: this.state.email,
+                photoName: this.state.email+ "_photo",
+                selectedImage: this.state.selectedImage
             };
             this.props.onSubmit(userData);
         }
@@ -50,9 +56,28 @@ class RegisterInput extends Component {
         });
     };
 
+    onPhotoChange(e) {
+        this.setState({
+            fileName: e.target.value,
+            selectedImage: e.target.files[0]
+        });
+        if (e.target.files && e.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#preview')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);;
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+    };
+
+
     render() {
         return (
-            <form onSubmit={(e) => { this.onSubmit(e) }}>
+            <form encType="multipart/form-data" onSubmit={(e) => { this.onSubmit(e) }} >
 
                 <label htmlFor="firstName">
                     First Name:
@@ -93,6 +118,19 @@ class RegisterInput extends Component {
                     onChange={(e) => { this.onEmailChange(e) }}
                     id="email"
                 />
+                <br />
+                <label htmlFor="photo">
+                    Upload your photo:
+                </label>
+                <input
+                    type="file"
+                    value={this.state.fileName}
+                    accept="image/*"
+                    onChange={(e) => { this.onPhotoChange(e) }}
+                    id="photo"/>
+                <br />
+                <img id="preview" />
+                <br />
                 <button type="submit" className="btn btn-primary ml-3" id="submitBtn">
                     Submit
                </button>
