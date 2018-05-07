@@ -20,13 +20,13 @@ var avatarImgStorage = new keystone.Storage({
 
 // Then we gonna add the fields 
 User.add({
-  name: { type: Types.Name, required: true, index: true },
+  name: { type: String, required: true, index: true },
   email: { type: Types.Email, initial: true, required: true, index: true },
   password: { type: Types.Password, initial: true },
   image: {
     type: Types.File,
     storage: avatarImgStorage,
-    mimetype: '.jpeg, .jpg, .gif, .svg',
+    mimetype: '.jpeg, .jpg, .gif, .png, .bmp',
   },
   canAccessKeystone: { type: Boolean, initial: true },
 });

@@ -3,14 +3,14 @@ var User = keystone.list('User');
 var Movie = keystone.list('Movie');
 exports = module.exports = function (done) {
     new User.model({
-        name: { first: 'admin', last: 'user' },
+        name: 'admin',
         email: 'admin@keystonejs.com',
         password: 'admin',
         canAccessKeystone: true,
     }).save();
 
     new User.model({
-        name: { first: 'test', last: 'user' },
+        name: 'testuser',
         email: 'user@keystonejs.com',
         password: 'user',
         canAccessKeystone: false,
@@ -22,8 +22,8 @@ exports = module.exports = function (done) {
         director: 'Ryan Coogler',
         genre: 'Action',
         image: {
-            filename: 'MV5BMTg1MTY2MjYzNV5BMl5BanBnXkFtZTgwMTc4NTMwNDI@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
-            size: 227195,
+            filename: 'a7b92708-32dd-43fd-9047-452dd506ee08.jpg',
+            size: 242421,
             mimetype: 'image/jpeg'
         },
         mpaa: 'PG-13',
@@ -39,8 +39,8 @@ exports = module.exports = function (done) {
         director: 'Anthony Russo, Joe Russo',
         genre: 'Action',
         image: {
-            filename: 'MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
-            size: 227195,
+            filename: '35733991-102a-4a4e-b2cf-0bd196fe25e2.jpg',
+            size: 233352,
             mimetype: 'image/jpeg'
         },
         mpaa: 'PG-13',
