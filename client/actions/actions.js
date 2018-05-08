@@ -7,6 +7,9 @@ export const GET_MOVIE_BY_ID = 'GET_MOVIE_BY_ID';
 export const USER_REGISTER = 'USER_REGISTER';
 export const USER_LOGIN = 'USER_LOGIN';
 export const GET_POPULAR = 'GET_POPULAR';
+export const ADD_REVIEW = 'ADD_REVIEW';
+export const GET_REVIEW_BY_MOVIE = 'GET_REVIEW_BY_MOVIE';
+export const GET_REVIEW_BY_AUTHOR = 'GET_REVIEW_BY_AUTHOR';
 // An action to check if the recipes are loaded accepts true or false
 
 
@@ -43,7 +46,24 @@ export function getPopularMovies(data) {
     payload: data
   };
 }
-
+export function addReview(data) {
+  return {
+    type: ADD_REVIEW,
+    payload: data
+  };
+}
+export function getReviewByMovie(data) {
+  return {
+    type: GET_REVIEW_BY_MOVIE,
+    payload: data
+  };
+}
+export function getReviewByAuthor(data) {
+  return {
+    type: GET_REVIEW_BY_AUTHOR,
+    payload: data
+  };
+}
 
 // This is a redux thunk that will fetch our model data
 export function moviesFetchPopularData(url) {
@@ -127,6 +147,60 @@ export function userLoginFetchResult(url, loginData) {
 
     request.then((response) => {
       dispatch(userLogin(response.data));
+    });
+  };
+}
+
+export function addReviewFetchResult(url, reviewData) {
+  return (dispatch) => {
+    var getResult = axios.create({
+      baseURL: 'http://localhost:3000/api'
+    });
+
+    const request = getResult.post(url, {
+      author: reviewData.author,
+      content: reviewData.content,
+      movie: reviewData.movie
+    });
+
+    request.then((response) => {
+      dispatch(addReview(response.data));
+    });
+  };
+}
+
+export function ReviewFetchDataByMovie(url, searchQuery) {
+  return (dispatch) => {
+    var getReview = axios.create({
+      baseURL: 'http://localhost:3000/api'
+    });
+
+    const request = getMovie.get(url, {
+      params: {
+        movie: searchQuery
+      }
+    });
+
+    request.then((response) => {
+      dispatch(getReviewByMovie(response.data));
+    });
+  };
+}
+
+export function ReviewFetchDataByAuthor(url, searchQuery) {
+  return (dispatch) => {
+    var getReview = axios.create({
+      baseURL: 'http://localhost:3000/api'
+    });
+
+    const request = getMovie.get(url, {
+      params: {
+        author: searchQuery
+      }
+    });
+
+    request.then((response) => {
+      dispatch(getReviewByAuthor(response.data));
     });
   };
 }

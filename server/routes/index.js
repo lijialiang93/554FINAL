@@ -1,6 +1,7 @@
 // We will need to require Keystone first
 var keystone = require('keystone');
 var User = keystone.list('User');
+var Review = keystone.list('Review');
 // Then to get access to our API route we will use importer
 var importRoutes = keystone.importer(__dirname);
 // ImageMagick
@@ -175,6 +176,76 @@ exports = module.exports = function (app) {
 		} catch (error) {
 			console.log(error);
 		}
+	});
+
+	app.post('/api/addReview', async (req, res) => {
+		try {
+			let reviewData = req.body;
+			new Review.model({
+				author: reviewData.author,
+				content: reviewData.content,
+				movie: reviewData.movie
+			}).save();
+			res.json({ message: "REVIEW ADD SUCCESSFUL!" });
+			
+		} catch (error) {
+			console.log(error);
+		}
+	});
+
+	app.get('/api/searchReviewByMovie', async (req, res) => {
+
+		try {
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "review-data-with-reply",
+				data: {
+					type: "getReviewByMovie",
+					searchQuery: req.query.movie
+				}
+			});
+
+			console.log("api "+req.query.movie);
+
+			let reply = {
+				review: response
+			};
+			if (reply.review !== null) {
+				res.json(reply);
+			}
+			else {
+				return res.json({ review: "NOT FOUND" });
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		
+	});
+
+	app.get('/api/searchReviewByAuthor', async (req, res) => {
+
+		try {
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "review-data-with-reply",
+				data: {
+					type: "getReviewByAuthor",
+					searchQuery: [req.query.author,req.query.movie]
+				}
+			});
+			let reply = {
+				review: response
+			};
+			if (reply.review !== null) {
+				res.json(reply);
+			}
+			else {
+				return res.json({ review: "NOT FOUND" });
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		
 	});
 
 	app.get('/api/userStatusCheck', checkUserStatus);

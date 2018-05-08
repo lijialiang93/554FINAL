@@ -10,7 +10,7 @@ const defaultRedisConnection = new NRP(nrpConfig);
 
 const defaultMessageConfig = {
   data: {},
-  timeout: 1000,
+  timeout: 2000,
   eventName: "send",
   redis: defaultRedisConnection,
   expectsResponse: true

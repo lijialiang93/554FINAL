@@ -3,6 +3,7 @@ const redisConnection = require("./redis-connection");
 const data = require("./data");
 const movieData = data.movie;
 const userData = data.user;
+const reviewData = data.review;
 
 redisConnection.on("send-message-with-reply:request:*", async (message, channel) => {
     let requestId = message.requestId;
@@ -72,6 +73,40 @@ redisConnection.on("user-data-with-reply:request:*", async (message, channel) =>
             redisConnection.emit(successEvent, {
                 requestId: requestId,
                 data: movieResult,
+                eventName: eventName
+            });
+            break;
+        default:
+            break;
+    }
+});
+
+redisConnection.on("review-data-with-reply:request:*", async (message, channel) => {
+    let requestId = message.requestId;
+    let eventName = message.eventName;
+
+    let messageText = message.data.message;
+    let successEvent = `${eventName}:success:${requestId}`;
+    let failedEvent = `${eventName}:failed:${requestId}`;
+
+
+    let type = message.data.type;
+    let searchQuery = message.data.searchQuery;
+    let reviewResult;
+    switch (type) {
+        case "getReviewByMovie":
+            reviewResult = await reviewData.getReviedwByMovie(searchQuery);
+            redisConnection.emit(successEvent, {
+                requestId: requestId,
+                data: reviewResult,
+                eventName: eventName
+            });
+            break;
+        case "getReviewByAuthor":
+            reviewResult = await reviewData.getReviedwByAuthor(searchQuery);
+            redisConnection.emit(successEvent, {
+                requestId: requestId,
+                data: reviewResult,
                 eventName: eventName
             });
             break;

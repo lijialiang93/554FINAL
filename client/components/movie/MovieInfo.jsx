@@ -3,19 +3,23 @@ import axios from "axios";
 import xss from 'xss';
 import { connect } from "react-redux";
 import { moviesFetchDataById } from "../../actions/actions";
+import AddReview from "../review/AddReview";
+import ReviewResult from "../review/ReviewResult";
 class MovieInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataVaild: false,
       movieId: null,
-      movieData: null
+      movieData: null,
+      reviewList:null,
     };
   }
 
   componentWillMount() {
     var id = this.props.location.query.id;
     var tmpData = [];
+    let currentUser = sessionStorage.getItem('currentUser');
     axios
       .get("http://localhost:3000/api/searchMovieById?id=" + id)
       .then(res => {
@@ -26,6 +30,13 @@ class MovieInfo extends Component {
           movieData: res.data
         });
       });
+    axios
+      .get("http://localhost:3000/api/searchReviewByMovie?movie="+id).
+      then(res=>{
+        this.setState(
+          {reviewList: res.data.review
+          });
+      });
   }
 
   render() {
@@ -34,6 +45,8 @@ class MovieInfo extends Component {
     // let data = axios.get('http://localhost:3000/api/searchMovieById?id=' + id);
     //let data = moviesFetchDataById(API_URL, id);
     // console.log(id);
+    // let data = axios.get('http://localhost:3000/api/searchMovieById?id=' + id);
+
     if (this.state.dataVaild == false) {
         return false;
     }
@@ -70,12 +83,6 @@ class MovieInfo extends Component {
     }
 
     return (
-      // <div>
-      //     {data.name}
-      //     {data.director}
-      //     {data.genre}
-      //     {data.mpaa}
-      // </div>
       <div key={data._id}>
         <h1>{data.name}</h1>
         <img style={{ width: "300px", height: "300px" }} src={img} />
@@ -88,6 +95,8 @@ class MovieInfo extends Component {
         <div dangerouslySetInnerHTML={createMarkupForStars()} />
         <h2>Storyline</h2>
         <div dangerouslySetInnerHTML={createMarkupForStoryline()} />
+        <ReviewResult movie={data._id}/>
+        <AddReview movie={data._id}/>
       </div>
     );
   }
