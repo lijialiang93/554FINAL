@@ -66,19 +66,19 @@ function checkUserStatus(req, res) {
 // Export our app routes
 exports = module.exports = function (app) {
 	// Get access to the API route in our app
-	app.get('/api/getPopular', async function (req, res) {
+	app.get('/api/getTopRated', async function (req, res) {
 		try {
 			let response = await nrpSender.sendMessage({
 				redis: redisConnection,
 				eventName: "send-message-with-reply",
 				data: {
-					type: "getPopularMovies",
-					//number of popular movie
+					type: "getTopRatedMovies",
+					//number of top rated movie
 					searchQuery: 2
 				}
 			});
 			let reply = {
-				popular: response
+				topRated: response
 			};
 
 			res.json(reply);
@@ -206,7 +206,7 @@ exports = module.exports = function (app) {
 
 	app.get('/api/userStatusCheck', checkUserStatus);
 	app.post('/api/userSignIn', signin);
-	app.all('/api/userSign*', checkAuth);
+
 
 	app.get('/', function (req, res) {
 		function renderFullPage() {

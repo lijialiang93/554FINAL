@@ -9,7 +9,8 @@ class MovieInfo extends Component {
     this.state = {
       dataVaild: false,
       movieId: null,
-      movieData: null
+      movieData: null,
+      user: null
     };
   }
 
@@ -30,7 +31,7 @@ class MovieInfo extends Component {
 
   render() {
     if (this.state.dataVaild == false) {
-        return false;
+      return false;
     }
     //var data = this.props.location.query;
     let data = this.state.movieData.movie;
@@ -77,6 +78,8 @@ class MovieInfo extends Component {
         <div dangerouslySetInnerHTML={createMarkupForStars()} />
         <h2>Storyline</h2>
         <div dangerouslySetInnerHTML={createMarkupForStoryline()} />
+        <h2>Rating:  {data.rating}</h2>
+
       </div>
     );
   }

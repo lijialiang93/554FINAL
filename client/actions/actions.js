@@ -6,7 +6,7 @@ export const GET_MOVIE_BY_NAME = 'GET_MOVIE_BY_NAME';
 export const GET_MOVIE_BY_ID = 'GET_MOVIE_BY_ID';
 export const USER_REGISTER = 'USER_REGISTER';
 export const USER_LOGIN = 'USER_LOGIN';
-export const GET_POPULAR = 'GET_POPULAR';
+export const GET_TOP_RATED = 'GET_TOP_RATED';
 // An action to check if the recipes are loaded accepts true or false
 
 
@@ -37,24 +37,24 @@ export function userLogin(data) {
     payload: data,
   };
 }
-export function getPopularMovies(data) {
+export function getTopRatedMovies(data) {
   return {
-    type: GET_POPULAR,
+    type: GET_TOP_RATED,
     payload: data
   };
 }
 
 
 // This is a redux thunk that will fetch our model data
-export function moviesFetchPopularData(url) {
+export function moviesFetchTopRatedData(url) {
   return (dispatch) => {
-    var getPopular = axios.create({
+    var getTopRated = axios.create({
       baseURL: 'http://localhost:3000/api'
     });
 
-    getPopular.get(url)
+    getTopRated.get(url)
       .then(function (response) {
-        dispatch(getPopularMovies(response.data));
+        dispatch(getTopRatedMovies(response.data));
       }).catch(function (error) {
         console.log(error);
       });

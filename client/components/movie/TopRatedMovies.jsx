@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Switch, hashHistory, Link } from 'react-router';
 import { connect } from 'react-redux';
-import { moviesFetchPopularData } from '../../actions/actions.js';
+import { moviesFetchTopRatedData } from '../../actions/actions.js';
 
-class PopularMovie extends Component {
+class TopRatedMovies extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,31 +13,31 @@ class PopularMovie extends Component {
 
     componentWillMount() {
         if (this.state.listOfMatchingMovies.length === 0) {
-            const API_URL = '/getPopular';
-            this.props.fetchPopular(API_URL);
+            const API_URL = '/getTopRated';
+            this.props.fetchTopRated(API_URL);
         }
     }
 
     componentWillReceiveProps(newProps) {
-        if (newProps.popularMovies !== this.props.popularMovies) {
+        if (newProps.topRatedMovies !== this.props.topRatedMovies) {
             this.setState({
-                listOfMatchingMovies: newProps.popularMovies.popular
+                listOfMatchingMovies: newProps.topRatedMovies.topRated
             });
         }
     }
     render() {
-        const popularList = this.state.listOfMatchingMovies;
-        if (popularList.length == 0) {
+        const topRatedList = this.state.listOfMatchingMovies;
+        if (topRatedList.length == 0) {
             return false;
         }
         else {
             return (
                 <div className="bg-primary">
                     <div>
-                        <h1>Popular Movies</h1>
+                        <h1>Top Rated Movies</h1>
                     </div>
                     <div className="row">
-                        {popularList.map(movie => {
+                        {topRatedList.map(movie => {
                             let path = {
                                 pathname: '/movieinfo',
                                 query: {
@@ -71,13 +71,13 @@ class PopularMovie extends Component {
 function mapStateToProps(state, ownProps) {
     // Things return here are showing in props for Characters
     return {
-        popularMovies: state.popularMovies
+        topRatedMovies: state.topRatedMovies
     };
 }
 const mapDispatchToProps = dispatch => ({
     // Our thunk will be mapped to this.props.fetchRecipe
-    fetchPopular: (url) => dispatch(moviesFetchPopularData(url)),
+    fetchTopRated: (url) => dispatch(moviesFetchTopRatedData(url)),
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PopularMovie);
+export default connect(mapStateToProps, mapDispatchToProps)(TopRatedMovies);

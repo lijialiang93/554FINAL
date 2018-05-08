@@ -75,7 +75,7 @@ Movie.add({
         wysiwyg: true,
         height: 500,
     },
-    popularity: {
+    rating: {
         type: Number,
         hidden:true
     },

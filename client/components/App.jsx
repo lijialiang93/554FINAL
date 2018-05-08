@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SearchIndex from './search/SearchIndex';
 import Nav from './nav/Nav';
-import Popular from './movie/popularMovie';
+import TopRatedMovies from './movie/TopRatedMovies';
 class App extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +15,7 @@ class App extends Component {
             <div>
             <Nav/>
             <SearchIndex />
-            <Popular/>
+            <TopRatedMovies/>
             </div>
         );
     }

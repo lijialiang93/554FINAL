@@ -10,9 +10,10 @@ User.add({
   email: { type: Types.Email, initial: true, required: true, index: true },
   password: { type: Types.Password, initial: true },
   image: {
-    filename: {type: String},
-    size: { type: Number },
-    mimetype: { type: String },
+    filename: {type: String, hidden:true},
+    size: { type: Number, hidden:true},
+    mimetype: { type: String, hidden:true},
+   
   },
   canAccessKeystone: { type: Boolean, initial: true },
 });
