@@ -1,6 +1,6 @@
 // We will need to require Keystone first
-const Review = keystone.list('Review');
 const keystone = require('keystone');
+const Review = keystone.list('Review');
 const uuid = require('uuid/v4');
 const fs = require('fs');
 const User = keystone.list('User');
