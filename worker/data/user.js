@@ -13,7 +13,7 @@ const exportedMethods = {
             console.log(error);
         }
 
-    },
+    }
 }
 
 module.exports = exportedMethods;

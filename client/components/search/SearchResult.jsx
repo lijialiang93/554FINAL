@@ -36,7 +36,7 @@ class SearchResult extends Component {
             return <SearchResultList movieList={movies} />;
         }
         else {
-            return (<div></div>);
+            return false;
         }
     }
 }

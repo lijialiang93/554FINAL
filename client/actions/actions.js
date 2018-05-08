@@ -10,6 +10,7 @@ export const GET_POPULAR = 'GET_POPULAR';
 export const ADD_REVIEW = 'ADD_REVIEW';
 export const GET_REVIEW_BY_MOVIE = 'GET_REVIEW_BY_MOVIE';
 export const GET_REVIEW_BY_AUTHOR = 'GET_REVIEW_BY_AUTHOR';
+export const GET_TOP_RATED = 'GET_TOP_RATED';
 // An action to check if the recipes are loaded accepts true or false
 
 
@@ -40,9 +41,9 @@ export function userLogin(data) {
     payload: data,
   };
 }
-export function getPopularMovies(data) {
+export function getTopRatedMovies(data) {
   return {
-    type: GET_POPULAR,
+    type: GET_TOP_RATED,
     payload: data
   };
 }
@@ -66,15 +67,15 @@ export function getReviewByAuthor(data) {
 }
 
 // This is a redux thunk that will fetch our model data
-export function moviesFetchPopularData(url) {
+export function moviesFetchTopRatedData(url) {
   return (dispatch) => {
-    var getPopular = axios.create({
+    var getTopRated = axios.create({
       baseURL: 'http://localhost:3000/api'
     });
 
-    getPopular.get(url)
+    getTopRated.get(url)
       .then(function (response) {
-        dispatch(getPopularMovies(response.data));
+        dispatch(getTopRatedMovies(response.data));
       }).catch(function (error) {
         console.log(error);
       });
@@ -124,9 +125,16 @@ export function userRegisterFetchResult(url, registerData) {
       baseURL: 'http://localhost:3000/api'
     });
 
-    const request = getResult.post(url, {
-      data: registerData
+    let formData = new FormData();
+    for(var key in registerData){
+      formData.append(key,registerData[key]);
+    }
+    const request = getResult.post(url, formData , {
+      headers: {
+        'Content-Type': 'multipart/form-data'}
     });
+
+    // const request = getResult.post(url, registerData);
 
     request.then((response) => {
       dispatch(userRegister(response.data));

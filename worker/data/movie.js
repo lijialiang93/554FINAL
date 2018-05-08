@@ -5,10 +5,10 @@ let Movie = mongoose.model('Movie', movieSchema);
 
 const exportedMethods = {
 
-    async getPopularMovies(number) {
+    async getTopRatedMovies(number) {
 
         try {
-            return await Movie.find({}).sort('-popularity').limit(number);
+            return await Movie.find({}).sort('-rating').limit(number);
         } catch (error) {
             console.log(error);
         }

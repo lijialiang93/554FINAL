@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { userRegisterFetchResult } from '../../actions/actions.js';
 
@@ -9,13 +10,14 @@ class RegisterResult extends Component {
         this.state = {
             result: "",
             email: "",
-            success: false
+            isReturned: false
         };
     }
 
 
     componentWillReceiveProps(newProps) {
-        if (newProps.data != this.props.data) {
+        this.props.getResult(false);
+        if (newProps.data != this.props.data && newProps.data != null) {
             const API_URL = '/userRegister';
             this.props.fetchRegisterResult(API_URL, newProps.data);
         }
@@ -24,22 +26,31 @@ class RegisterResult extends Component {
             this.setState({
                 result: newProps.registerResult.message,
                 email: newProps.registerResult.email,
-                success: true
+                isReturned: true
             });
-
+            if (newProps.registerResult.message === 'registration success!') {
+                this.props.getResult(true);
+            }
+            else {
+                this.props.getResult(false);
+            }
         }
     }
 
 
     render() {
         const renderResult = this.state.result;
-        if (renderResult != "" && this.state.success) {
+        if (renderResult != undefined && renderResult != "" && this.state.isReturned) {
             return (
-                <div>{this.state.email + renderResult}</div>
+                <div>
+                    {this.state.email}  {renderResult}
+                    <br/>
+                    <Link to='/'>Back to Homepage</Link>
+                </div>
             );
         }
         else {
-            return (<div></div>);
+            return false;
         }
     }
 }

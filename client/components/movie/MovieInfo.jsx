@@ -13,6 +13,7 @@ class MovieInfo extends Component {
       movieId: null,
       movieData: null,
       reviewList:null,
+      user: null
     };
   }
 
@@ -40,15 +41,8 @@ class MovieInfo extends Component {
   }
 
   render() {
-    // var id = this.props.location.query.id;
-    // const API_URL = '/searchMovieById';
-    // let data = axios.get('http://localhost:3000/api/searchMovieById?id=' + id);
-    //let data = moviesFetchDataById(API_URL, id);
-    // console.log(id);
-    // let data = axios.get('http://localhost:3000/api/searchMovieById?id=' + id);
-
     if (this.state.dataVaild == false) {
-        return false;
+      return false;
     }
     //var data = this.props.location.query;
     let data = this.state.movieData.movie;
@@ -97,6 +91,8 @@ class MovieInfo extends Component {
         <div dangerouslySetInnerHTML={createMarkupForStoryline()} />
         <ReviewResult movie={data._id}/>
         <AddReview movie={data._id}/>
+        <h2>Rating:  {data.rating}</h2>
+
       </div>
     );
   }

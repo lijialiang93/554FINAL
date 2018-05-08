@@ -34,8 +34,8 @@ redisConnection.on("send-message-with-reply:request:*", async (message, channel)
                 eventName: eventName
             });
             break;
-        case "getPopularMovies":
-            movieResult = await movieData.getPopularMovies(searchQuery);
+        case "getTopRatedMovies":
+            movieResult = await movieData.getTopRatedMovies(searchQuery);
             redisConnection.emit(successEvent, {
                 requestId: requestId,
                 data: movieResult,
@@ -61,18 +61,10 @@ redisConnection.on("user-data-with-reply:request:*", async (message, channel) =>
     let userResult;
     switch (type) {
         case "getUserByEmail":
-            movieResult = await userData.getUserByEmail(searchQuery);
+            userResult = await userData.getUserByEmail(searchQuery);
             redisConnection.emit(successEvent, {
                 requestId: requestId,
-                data: movieResult,
-                eventName: eventName
-            });
-            break;
-        case "getMovieById":
-            movieResult = await movieData.getMovieById(searchQuery);
-            redisConnection.emit(successEvent, {
-                requestId: requestId,
-                data: movieResult,
+                data: userResult,
                 eventName: eventName
             });
             break;

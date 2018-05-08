@@ -1,11 +1,13 @@
 // We will need to require Keystone first
-var keystone = require('keystone');
-var User = keystone.list('User');
-var Review = keystone.list('Review');
+const Review = keystone.list('Review');
+const keystone = require('keystone');
+const uuid = require('uuid/v4');
+const fs = require('fs');
+const User = keystone.list('User');
 // Then to get access to our API route we will use importer
-var importRoutes = keystone.importer(__dirname);
+const importRoutes = keystone.importer(__dirname);
 // ImageMagick
-var im = require('imagemagick');
+const im = require('imagemagick');
 // And finally set up the api on a route
 // var routes = {
 // 	api: importRoutes('./api'),
@@ -14,39 +16,39 @@ const redisConnection = require("./redis-connection");
 const nrpSender = require("./nrp-sender-shim");
 
 function signin(req, res) {
-  
+
 	if (!req.body.username || !req.body.password) return res.json({ success: false });
-	
-	User.model.findOne({ email: req.body.username }).exec(function(err, user) {
-	  
-	  if (err || !user) {
-		return res.json({
-		  success: false,
-		  session: false,
-		  message: (err && err.message ? err.message : false) || 'Sorry, there was an issue signing you in, please try again.'
+
+	User.model.findOne({ email: req.body.username }).exec(function (err, user) {
+
+		if (err || !user) {
+			return res.json({
+				success: false,
+				session: false,
+				message: (err && err.message ? err.message : false) || 'Sorry, there was an issue signing you in, please try again.'
+			});
+		}
+
+		keystone.session.signin({ email: user.email, password: req.body.password }, req, res, function (user) {
+
+			return res.json({
+				success: true,
+				session: true,
+				date: new Date().getTime(),
+				userId: user.id,
+				email: user.email
+			});
+
+		}, function (err) {
+
+			return res.json({
+				success: true,
+				session: false,
+				message: (err && err.message ? err.message : false) || 'Sorry, there was an issue signing you in, please try again.'
+			});
+
 		});
-	  }
-	  
-	  keystone.session.signin({ email: user.email, password: req.body.password }, req, res, function(user) {
-		
-		return res.json({
-		  success: true,
-		  session: true,
-		  date: new Date().getTime(),
-		  userId: user.id,
-		  email: user.email
-		});
-		
-	  }, function(err) {
-		
-		return res.json({
-		  success: true,
-		  session: false,
-		  message: (err && err.message ? err.message : false) || 'Sorry, there was an issue signing you in, please try again.'
-		});
-		
-	  });
-	  
+
 	});
 }
 
@@ -58,59 +60,59 @@ function checkAuth(req, res, next) {
 }
 
 function checkUserStatus(req, res) {
-	if (req.user) return res.json({signedIn: true});
-	else return res.json({signedIn: false});
+	if (req.user) return res.json({ signedIn: true, nickname: req.user.name });
+	else return res.json({ signedIn: false });
 }
 
 // Export our app routes
 exports = module.exports = function (app) {
 	// Get access to the API route in our app
-	app.get('/api/getPopular', async function(req, res){
+	app.get('/api/getTopRated', async function (req, res) {
 		try {
 			let response = await nrpSender.sendMessage({
 				redis: redisConnection,
 				eventName: "send-message-with-reply",
 				data: {
-					type: "getPopularMovies",
-					//number of popular movie
+					type: "getTopRatedMovies",
+					//number of top rated movie
 					searchQuery: 2
 				}
 			});
 			let reply = {
-				popular: response
+				topRated: response
 			};
-	
+
 			res.json(reply);
 
 		} catch (error) {
 			console.log(error);
 		}
 	}),
-	app.get('/api/searchMovie', async function (req, res) {
-		try {
-			let response = await nrpSender.sendMessage({
-				redis: redisConnection,
-				eventName: "send-message-with-reply",
-				data: {
-					type: "getMovieByName",
-					searchQuery: req.query.name
+		app.get('/api/searchMovie', async function (req, res) {
+			try {
+				let response = await nrpSender.sendMessage({
+					redis: redisConnection,
+					eventName: "send-message-with-reply",
+					data: {
+						type: "getMovieByName",
+						searchQuery: req.query.name
+					}
+				});
+				let reply = {
+					movie: response
+				};
+				if (reply.movie !== null) {
+					res.json(reply);
 				}
-			});
-			let reply = {
-				movie: response
-			};
-			if (reply.movie !== null) {
-				res.json(reply);
-			}
-			else {
-				return res.json({ movie: "NOT FOUND" });
+				else {
+					return res.json({ movie: "NOT FOUND" });
+				}
+
+			} catch (error) {
+				console.log(error);
 			}
 
-		} catch (error) {
-			console.log(error);
-		}
-
-	});
+		});
 
 	app.get('/api/searchMovieById', async (req, res) => {
 
@@ -135,12 +137,13 @@ exports = module.exports = function (app) {
 		} catch (error) {
 			console.log(error);
 		}
-		
+
 	});
 
 	app.post('/api/userRegister', async (req, res) => {
 		try {
-			let userData = req.body.data;
+			let userData = req.body;
+			let avatarImage = req.files.selectedImage;
 			let response = await nrpSender.sendMessage({
 				redis: redisConnection,
 				eventName: "user-data-with-reply",
@@ -152,23 +155,47 @@ exports = module.exports = function (app) {
 			let reply = {
 				user: response
 			};
-			// resize image
-			im.resize({
-				srcData: userData.selectedImage,
-				width:   256,
-				height: 256
-			}, function(err){
-				if (err) throw err
-			});
-			if (reply.user.length == 0){
-				new User.model({
-					name: { first: userData.firstName, last: userData.lastName },
-					email: userData.email,
-					password: userData.password,
-					image: userData.selectedImage,
-					canAccessKeystone: false,
-				}).save();
-				res.json({ email: userData.email, message: "REGISTRATION SUCCESSFUL!" });
+			if (reply.user.length == 0) {
+				var fileName = null;
+				im.resize({
+					srcData: fs.readFileSync(avatarImage.path, 'binary'),
+					width: 300,
+					height: 300
+				}, async (err, stdout, stderr) => {
+					if (err) throw err;
+					fileName = uuid() + '.' + avatarImage.extension;
+					let writePath = __dirname + '/../public/img/avatar/' + fileName;
+					fs.writeFileSync(writePath, stdout, 'binary');
+					await new User.model({
+						name: userData.nickname,
+						email: userData.email,
+						password: userData.password,
+						image: {
+							filename: fileName,
+							size: avatarImage.size,
+							mimetype: avatarImage.mimetype
+						},
+						canAccessKeystone: false,
+					}).save();
+					let workerResponse = await nrpSender.sendMessage({
+						redis: redisConnection,
+						eventName: "user-data-with-reply",
+						data: {
+							type: "getUserByEmail",
+							searchQuery: userData.email
+						}
+					});
+					let registerReply = {
+						user: workerResponse
+					};
+					if (registerReply.user.length===1) {
+						res.json({ email: userData.email, message: "registration success!" })
+					}
+					else{
+						res.json({ email: userData.email, message: "something went wrong" })
+					}
+
+				});
 			}
 			else {
 				res.json({ email: userData.email, message: "has already existed in the system!" })
@@ -250,7 +277,7 @@ exports = module.exports = function (app) {
 
 	app.get('/api/userStatusCheck', checkUserStatus);
 	app.post('/api/userSignIn', signin);
-	app.all('./api/userSign*', checkAuth);
+
 
 	app.get('/', function (req, res) {
 		function renderFullPage() {
