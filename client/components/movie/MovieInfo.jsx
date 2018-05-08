@@ -29,11 +29,6 @@ class MovieInfo extends Component {
   }
 
   render() {
-    // var id = this.props.location.query.id;
-    // const API_URL = '/searchMovieById';
-    // let data = axios.get('http://localhost:3000/api/searchMovieById?id=' + id);
-    //let data = moviesFetchDataById(API_URL, id);
-    // console.log(id);
     if (this.state.dataVaild == false) {
         return false;
     }
@@ -70,12 +65,6 @@ class MovieInfo extends Component {
     }
 
     return (
-      // <div>
-      //     {data.name}
-      //     {data.director}
-      //     {data.genre}
-      //     {data.mpaa}
-      // </div>
       <div key={data._id}>
         <h1>{data.name}</h1>
         <img style={{ width: "300px", height: "300px" }} src={img} />

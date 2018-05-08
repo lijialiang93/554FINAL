@@ -59,7 +59,7 @@ function checkAuth(req, res, next) {
 }
 
 function checkUserStatus(req, res) {
-	if (req.user) return res.json({ signedIn: true });
+	if (req.user) return res.json({ signedIn: true, nickname: req.user.name });
 	else return res.json({ signedIn: false });
 }
 
@@ -160,12 +160,12 @@ exports = module.exports = function (app) {
 					srcData: fs.readFileSync(avatarImage.path, 'binary'),
 					width: 300,
 					height: 300
-				}, async function (err, stdout, stderr) {
+				}, async (err, stdout, stderr) => {
 					if (err) throw err;
 					fileName = uuid() + '.' + avatarImage.extension;
 					let writePath = __dirname + '/../public/img/avatar/' + fileName;
 					fs.writeFileSync(writePath, stdout, 'binary');
-					new User.model({
+					await new User.model({
 						name: userData.nickname,
 						email: userData.email,
 						password: userData.password,
@@ -176,7 +176,7 @@ exports = module.exports = function (app) {
 						},
 						canAccessKeystone: false,
 					}).save();
-					let response = await nrpSender.sendMessage({
+					let workerResponse = await nrpSender.sendMessage({
 						redis: redisConnection,
 						eventName: "user-data-with-reply",
 						data: {
@@ -184,11 +184,11 @@ exports = module.exports = function (app) {
 							searchQuery: userData.email
 						}
 					});
-					let reply = {
-						user: response
+					let registerReply = {
+						user: workerResponse
 					};
-					if(reply.user.length===1){
-						res.json({ email: userData.email, message: "success!" })
+					if (registerReply.user.length===1) {
+						res.json({ email: userData.email, message: "registration success!" })
 					}
 					else{
 						res.json({ email: userData.email, message: "something went wrong" })

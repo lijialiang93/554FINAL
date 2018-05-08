@@ -8,6 +8,7 @@ class Nav extends Component {
         super(props);
         this.state = {
             login: false,
+            username: "",
             isLoggedIn: sessionStorage.getItem('loggedIn') === 'true'
         };
     }
@@ -16,22 +17,19 @@ class Nav extends Component {
         axios.get("http://localhost:3000/api/userStatusCheck").then(res => {
             console.log(res);
             this.setState({
-                isLoggedIn: res.data.signedIn
+                isLoggedIn: res.data.signedIn,
+                username: res.data.nickname
             });
             sessionStorage.setItem('loggedIn', this.state.isLoggedIn);
         });
     }
 
     render() {
-        console.log(this.state);
         let signInPath = {
             pathname: '/user/signin',
         };
         let registerPath = {
             pathname: '/user/register',
-        };
-        let signOutPath = {
-            pathname: '/user/signout',
         };
         if (this.state.isLoggedIn == false){
         return (
@@ -46,7 +44,7 @@ class Nav extends Component {
         }
         else {
             return (
-                <div>Logged In!
+                <div>Logged In! {this.state.username}
                 <br/>
                 <a href="http://localhost:3000/keystone/signout">Sign Out</a>
                 </div>

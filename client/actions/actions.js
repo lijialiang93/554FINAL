@@ -104,7 +104,6 @@ export function userRegisterFetchResult(url, registerData) {
       baseURL: 'http://localhost:3000/api'
     });
 
-    console.log(registerData);
     let formData = new FormData();
     for(var key in registerData){
       formData.append(key,registerData[key]);

@@ -12,8 +12,22 @@ class RegisterInput extends Component {
             photoName: "",
             fileName: "",
             selectedImage: "",
-            result: null
+            result: false
         };
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.setState({
+            result: newProps.result
+        }, () => {
+            if (this.state.result === true) {
+                $('#submitBtn').attr('disabled', 'disabled');
+                $('#registerForm :input').prop('disabled', true);
+            } else {
+                $('#submitBtn').attr('enabled', 'enabled');
+                $('#registerForm :input').prop('disabled', false);
+            }
+        });
     }
 
     onSubmit(e) {
