@@ -77,7 +77,7 @@ Movie.add({
     },
     popularity: {
         type: Number,
-        wysiwyg: false
+        hidden:true
     },
 });
 
