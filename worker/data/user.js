@@ -13,14 +13,6 @@ const exportedMethods = {
             console.log(error);
         }
 
-    },
-
-    async registerUser(userData) {
-        try {
-            return await User.create(userData);
-        } catch (error) {
-            console.log(error);
-        }
     }
 }
 
