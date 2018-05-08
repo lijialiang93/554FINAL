@@ -14,6 +14,14 @@ const exportedMethods = {
         }
 
     },
+
+    async registerUser(userData) {
+        try {
+            return await User.create(userData);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 module.exports = exportedMethods;

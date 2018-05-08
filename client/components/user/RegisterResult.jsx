@@ -15,7 +15,7 @@ class RegisterResult extends Component {
 
 
     componentWillReceiveProps(newProps) {
-        if (newProps.data != this.props.data) {
+        if (newProps.data != this.props.data && newProps.data != null) {
             const API_URL = '/userRegister';
             this.props.fetchRegisterResult(API_URL, newProps.data);
         }
@@ -35,7 +35,7 @@ class RegisterResult extends Component {
         const renderResult = this.state.result;
         if (renderResult != "" && this.state.success) {
             return (
-                <div>{this.state.email + renderResult}</div>
+                <div>{this.state.email}  {renderResult}</div>
             );
         }
         else {

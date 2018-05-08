@@ -7,7 +7,7 @@ class Register extends Component {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
-            data: null
+            data: null,
         };
     }
 

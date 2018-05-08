@@ -104,9 +104,17 @@ export function userRegisterFetchResult(url, registerData) {
       baseURL: 'http://localhost:3000/api'
     });
 
-    const request = getResult.post(url, {
-      data: registerData
+    console.log(registerData);
+    let formData = new FormData();
+    for(var key in registerData){
+      formData.append(key,registerData[key]);
+    }
+    const request = getResult.post(url, formData , {
+      headers: {
+        'Content-Type': 'multipart/form-data'}
     });
+
+    // const request = getResult.post(url, registerData);
 
     request.then((response) => {
       dispatch(userRegister(response.data));

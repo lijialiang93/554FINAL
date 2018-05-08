@@ -1,10 +1,12 @@
 // We will need to require Keystone first
-var keystone = require('keystone');
-var User = keystone.list('User');
+const keystone = require('keystone');
+const uuid = require('uuid/v4');
+const fs = require('fs');
+const User = keystone.list('User');
 // Then to get access to our API route we will use importer
-var importRoutes = keystone.importer(__dirname);
+const importRoutes = keystone.importer(__dirname);
 // ImageMagick
-var im = require('imagemagick');
+const im = require('imagemagick');
 // And finally set up the api on a route
 // var routes = {
 // 	api: importRoutes('./api'),
@@ -139,8 +141,8 @@ exports = module.exports = function (app) {
 
 	app.post('/api/userRegister', async (req, res) => {
 		try {
-			let userData = req.body.data;
-			console.log(userData);
+			let userData = req.body;
+			let avatarImage = req.files.selectedImage;
 			let response = await nrpSender.sendMessage({
 				redis: redisConnection,
 				eventName: "user-data-with-reply",
@@ -152,23 +154,39 @@ exports = module.exports = function (app) {
 			let reply = {
 				user: response
 			};
-			// resize image
-			im.resize({
-				srcData: userData.selectedImage,
-				width:   256,
-				height: 256
-			}, function(err){
-				if (err) throw err
-			});
 			if (reply.user.length == 0){
-				new User.model({
-					nickname: userData.nickname,
-					email: userData.email,
-					password: userData.password,
-					image: userData.selectedImage,
-					canAccessKeystone: false,
-				}).save();
-				res.json({ email: userData.email, message: "REGISTRATION SUCCESSFUL!" });
+				var fileName = null;
+				im.resize({
+					srcData: fs.readFileSync(avatarImage.path, 'binary'),
+					width:  300,
+					height: 300
+				}, function(err, stdout, stderr) {
+					if (err) throw err;
+					fileName = uuid() + '.' + avatarImage.extension;
+					let writePath = __dirname + '/../public/img/avatar/' + fileName;
+					fs.writeFileSync(writePath, stdout, 'binary');
+					let userReg = {
+						name: userData.nickname,
+						email: userData.email,
+						password: userData.password,
+						image: {
+							filename: fileName,
+							size: avatarImage.size,
+							mimetype: avatarImage.mimetype
+						},
+						canAccessKeystone: false,
+					};
+					nrpSender.sendMessage({
+						redis: redisConnection,
+						eventName: "user-data-with-reply",
+						data: {
+							type: "registerUser",
+							searchQuery: userReg
+						}
+					}).then(function(response,err){
+						res.json({ email: userData.email, message: "REGISTRATION SUCCESSFUL!" });
+					});
+				});
 			}
 			else {
 				res.json({ email: userData.email, message: "has already existed in the system!" })

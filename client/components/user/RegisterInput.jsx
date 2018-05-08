@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-var $ = require ('jquery')
+import axios from 'axios';
+var $ = require ('jquery');
 
 class RegisterInput extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class RegisterInput extends Component {
             email: "",
             photoName: "",
             fileName: "",
-            selectedImage: {},
+            selectedImage: "",
             result: null
         };
     }
@@ -22,8 +23,7 @@ class RegisterInput extends Component {
                 nickname: this.state.nickname,
                 password: this.state.password,
                 email: this.state.email,
-                photoName: this.state.email+ "_photo",
-                selectedImage: this.state.selectedImage
+                selectedImage: this.state.selectedImage,
             };
             this.props.onSubmit(userData);
         }
@@ -57,8 +57,8 @@ class RegisterInput extends Component {
             reader.onload = function (e) {
                 $('#preview')
                     .attr('src', e.target.result)
-                    .width(150)
-                    .height(200);
+                    .width(300)
+                    .height(300);
             };
             reader.readAsDataURL(e.target.files[0]);
         }
@@ -68,7 +68,7 @@ class RegisterInput extends Component {
 
     render() {
         return (
-            <form encType="multipart/form-data" onSubmit={(e) => { this.onSubmit(e) }} >
+            <form id="registerForm" encType="multipart/form-data" onSubmit={(e) => { this.onSubmit(e) }} >
 
                 <label htmlFor="nickname">
                     Nickname:
