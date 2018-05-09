@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import xss from 'xss';
 
 class SignIn extends Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class SignIn extends Component {
 
     onEmailChange(e) {
         this.setState({
-            email: e.target.value
+            email: xss(e.target.value)
         });
     };
 

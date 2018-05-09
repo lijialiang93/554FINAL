@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import xss from 'xss';
 var $ = require ('jquery');
 
 class RegisterInput extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            nickname: "",
+            username: "",
             password: "",
             email: "",
             photoName: "",
@@ -32,9 +32,9 @@ class RegisterInput extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        if (this.state.nickname && this.state.password && this.state.email && this.state.selectedImage) {
+        if (this.state.username && this.state.password && this.state.email && this.state.selectedImage) {
             let userData = {
-                nickname: this.state.nickname,
+                username: this.state.username,
                 password: this.state.password,
                 email: this.state.email,
                 selectedImage: this.state.selectedImage,
@@ -43,9 +43,9 @@ class RegisterInput extends Component {
         }
     };
 
-    onNicknameChange(e) {
+    onUsernameChange(e) {
         this.setState({
-            nickname: e.target.value
+            username: xss(e.target.value)
         });
     };
 
@@ -57,13 +57,13 @@ class RegisterInput extends Component {
 
     onEmailChange(e) {
         this.setState({
-            email: e.target.value
+            email: xss(e.target.value)
         });
     };
 
     onPhotoChange(e) {
         this.setState({
-            fileName: e.target.value,
+            fileName: xss(e.target.value),
             selectedImage: e.target.files[0]
         });
         if (e.target.files && e.target.files[0]) {
@@ -84,14 +84,14 @@ class RegisterInput extends Component {
         return (
             <form id="registerForm" encType="multipart/form-data" onSubmit={(e) => { this.onSubmit(e) }} >
 
-                <label htmlFor="nickname">
-                    Nickname:
+                <label htmlFor="username">
+                    Username:
                     </label>
                 <input
                     type="text"
-                    value={this.state.nickname}
-                    onChange={(e) => { this.onNicknameChange(e) }}
-                    id="nickname"
+                    value={this.state.username}
+                    onChange={(e) => { this.onUsernameChange(e) }}
+                    id="username"
                 />
                 <br/>
                 <label htmlFor="password">

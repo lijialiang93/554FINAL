@@ -13,6 +13,16 @@ const exportedMethods = {
             console.log(error);
         }
 
+    },
+
+    async getUserById(id) {
+
+        try {
+            return await User.findOne({ '_id' : id });
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 }
 

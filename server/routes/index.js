@@ -9,10 +9,6 @@ const User = keystone.list('User');
 const importRoutes = keystone.importer(__dirname);
 // ImageMagick
 const im = require('imagemagick');
-// And finally set up the api on a route
-// var routes = {
-// 	api: importRoutes('./api'),
-// };
 const redisConnection = require("./redis-connection");
 const nrpSender = require("./nrp-sender-shim");
 
@@ -61,7 +57,7 @@ function checkAuth(req, res, next) {
 }
 
 function checkUserStatus(req, res) {
-	if (req.user) return res.json({ signedIn: true, nickname: req.user.name });
+	if (req.user) return res.json({ signedIn: true, nickname: req.user.name, userId: req.user._id });
 	else return res.json({ signedIn: false });
 }
 
@@ -141,6 +137,30 @@ exports = module.exports = function (app) {
 
 	});
 
+	app.get('/api/getUserById', async (req, res) => {
+		try {
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "user-data-with-reply",
+				data: {
+					type: "getUserById",
+					searchQuery: req.query.id
+				}
+			});
+			let reply = {
+				user: response
+			};
+			if (reply.user !== null) {
+				res.json(reply);
+			}
+			else {
+				return res.json({ user: "user not found"});
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	});
+
 	app.post('/api/userRegister', async (req, res) => {
 		try {
 			let userData = req.body;
@@ -168,7 +188,7 @@ exports = module.exports = function (app) {
 					let writePath = __dirname + '/../public/img/avatar/' + fileName;
 					fs.writeFileSync(writePath, stdout, 'binary');
 					await new User.model({
-						name: userData.nickname,
+						name: userData.username,
 						email: userData.email,
 						password: userData.password,
 						image: {

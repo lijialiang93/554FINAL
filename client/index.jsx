@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 // We will need to import this from redux to create our store and make use of the thunk
 import { createStore, applyMiddleware } from 'redux';
@@ -13,7 +14,7 @@ import MovieInfo from './components/movie/MovieInfo';
 import App from './components/App';
 import Register from './components/user/Register';
 import SignIn from './components/user/SignInPage';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import UserInfo from './components/user/UserInfo';
 import Nav from './components/nav/Nav';
 
 
@@ -31,6 +32,7 @@ ReactDOM.render(
       <Route path="/movieinfo" component={MovieInfo}></Route>
       <Route path="/user/register" component={Register}></Route>
       <Route path="/user/signin" component={SignIn}></Route>
+      <Route path="/user/viewinfo" component={UserInfo}></Route>
     </Router>
   </Provider>,
   document.querySelector('.react-container'));

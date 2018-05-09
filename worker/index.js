@@ -69,6 +69,14 @@ redisConnection.on("user-data-with-reply:request:*", async (message, channel) =>
                 eventName: eventName
             });
             break;
+        case "getUserById":
+            userResult = await userData.getUserById(searchQuery);
+            redisConnection.emit(successEvent, {
+                requestId: requestId,
+                data: userResult,
+                eventName: eventName
+            });
+            break;
         default:
             break;
     }
