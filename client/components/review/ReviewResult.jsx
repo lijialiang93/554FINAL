@@ -10,7 +10,7 @@ class ReviewResult extends Component {
       }
     componentWillMount() {
         axios
-        .get("http://localhost:3000/api/searchReviewByMovie?movie="+this.props.movie)
+        .get("/api/searchReviewByMovie?movie="+this.props.movie)
         .then(res=>{
           this.setState(
             {reviewList: res.data.review

@@ -87,16 +87,16 @@ class RegisterInput extends Component {
                 <table width={'100%'} height={'200px'}>
                     <tr >
                         <td>
-                            <label htmlFor="nickname" className="">
-                                Nickname:
+                            <label htmlFor="username" className="">
+                                Username:
                             </label>
                         </td>
                         <td>
                             <input
                                 type="text"
-                                value={this.state.nickname}
+                                value={this.state.username}
                                 onChange={(e) => { this.onUsernameChange(e) }}
-                                id="nickname"
+                                id="username"
                                 className="form-control"
                             />
                         </td>

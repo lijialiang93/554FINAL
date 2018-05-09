@@ -25,7 +25,7 @@ class Rate extends Component {
 
     componentWillMount() {
         axios
-      .get("http://localhost:3000/api/searchRateByAuthor?movie="+this.state.movie+"&author="+this.state.author).
+      .get("/api/searchRateByAuthor?movie="+this.state.movie+"&author="+this.state.author).
       then(res=>{
           if(res.data.rate.length>0)
         this.setState(
