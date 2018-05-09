@@ -103,7 +103,6 @@ class MovieInfo extends Component {
         <div dangerouslySetInnerHTML={createMarkupForStoryline()} />
         <ReviewResult movie={data._id}/>
         <AddReview movie={data._id}/>
-        <h2>Rating:  {data.rating}</h2>
         <Rate movie={data._id}/>
       </div>
     );
