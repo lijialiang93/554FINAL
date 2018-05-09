@@ -40,11 +40,12 @@ class RateInput extends Component {
                         value={this.state.rate}
                         onChange={(e) => { this.onContentChange(e) }}
                         id="rate">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option selected>Rate this movie</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                     </div> 
                 <button type="submit" className="btn btn-primary btn-sm" id="rateBtn">
