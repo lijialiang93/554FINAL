@@ -19,8 +19,12 @@ class ReviewResult extends Component {
       }
 
     render() {
-    if(this.state.reviewList!=null)
-       return(
+        if(this.state.reviewList==null||this.state.reviewList.length<=0)
+        return(
+            <div>No Review yet</div>
+        ) 
+        else
+        return(
             <div>
                 <h2>Reviews:</h2>
                 <div className="row">
@@ -30,11 +34,7 @@ class ReviewResult extends Component {
                     })}
                 </div>
             </div>
-       )
-    else
-       return(
-           <div/>
-       )
+   )
     }
 }
 

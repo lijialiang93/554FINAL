@@ -15,7 +15,7 @@ class MovieInfo extends Component {
       movieData: null,
       reviewList:null,
       user: null,
-      rate: 0
+      rate: "NOT RATED YET"
     };
   }
 
@@ -43,6 +43,7 @@ class MovieInfo extends Component {
     axios
       .get("http://localhost:3000/api/searchRateByMovie?movie="+id).
       then(res=>{
+        if(res.data.rate!=null)
         this.setState(
           {rate: res.data.rate
           });
