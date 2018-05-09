@@ -95,7 +95,7 @@ class RegisterInput extends Component {
                             <input
                                 type="text"
                                 value={this.state.nickname}
-                                onChange={(e) => { this.onNicknameChange(e) }}
+                                onChange={(e) => { this.onUsernameChange(e) }}
                                 id="nickname"
                                 className="form-control"
                             />
