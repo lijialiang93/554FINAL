@@ -82,51 +82,76 @@ class RegisterInput extends Component {
 
     render() {
         return (
-            <form id="registerForm" encType="multipart/form-data" onSubmit={(e) => { this.onSubmit(e) }} >
-
-                <label htmlFor="username">
-                    Username:
-                    </label>
-                <input
-                    type="text"
-                    value={this.state.username}
-                    onChange={(e) => { this.onUsernameChange(e) }}
-                    id="username"
-                />
-                <br/>
-                <label htmlFor="password">
-                    Password:
-                    </label>
-                <input
-                    type="password"
-                    value={this.state.password}
-                    onChange={(e) => { this.onPasswordChange(e) }}
-                    id="password"
-                />
-                <br/>
-                <label htmlFor="email">
-                    Email:
-                    </label>
-                <input
-                    type="text"
-                    value={this.state.email}
-                    onChange={(e) => { this.onEmailChange(e) }}
-                    id="email"
-                />
-                <br />
-                <label htmlFor="photo">
-                    Upload your photo:
-                </label>
-                <input
-                    type="file"
-                    value={this.state.fileName}
-                    accept="image/*"
-                    onChange={(e) => { this.onPhotoChange(e) }}
-                    id="photo"/>
-                <br />
+            <form className="form-horizontal" id="registerForm" encType="multipart/form-data" onSubmit={(e) => { this.onSubmit(e) }} >
+                <span className="form-signin-heading"> <h1 className="text-center pb-5">User Register</h1></span>
+                <table width={'100%'} height={'200px'}>
+                    <tr >
+                        <td>
+                            <label htmlFor="nickname" className="">
+                                Nickname:
+                            </label>
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                value={this.state.nickname}
+                                onChange={(e) => { this.onNicknameChange(e) }}
+                                id="nickname"
+                                className="form-control"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label htmlFor="password" className="">
+                                Password:
+                            </label>
+                        </td>
+                        <td>
+                            <input
+                                type="password"
+                                value={this.state.password}
+                                onChange={(e) => { this.onPasswordChange(e) }}
+                                id="password"
+                                className="form-control"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label htmlFor="email">
+                                Email:
+                            </label>
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                value={this.state.email}
+                                onChange={(e) => { this.onEmailChange(e) }}
+                                id="email"
+                                className="form-control"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label htmlFor="photo">
+                                Photo:
+                            </label>
+                        </td>
+                        <td>
+                            <input
+                                type="file"
+                                value={this.state.fileName}
+                                accept="image/*"
+                                onChange={(e) => { this.onPhotoChange(e) }}
+                                id="photo"/>
+                        </td>
+                    </tr>
+                </table>
                 <img id="preview" />
                 <br />
-                <button type="submit" className="btn btn-primary ml-3" id="submitBtn">
+                <button type="submit" className="btn btn-lg btn-primary btn-block" id="submitBtn">
                     Submit
                </button>
             </form>

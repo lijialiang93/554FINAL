@@ -41,10 +41,10 @@ class Nav extends Component {
         };
         if (this.state.isLoggedIn == false){
         return (
-            <nav>
-                <a href="http://localhost:3000/keystone/signin" target="_blank">Log in</a>
-                <Link to={signInPath}>Sign In</Link>
-                <Link to={registerPath}>Register</Link>
+            <nav className="float-right" style={{height: '100px'}}>
+                <a href="http://localhost:3000/keystone/signin" target="_blank" className="col-md-1">Log in</a>
+                <Link to={signInPath} className="col-md-1">Sign In</Link>
+                <Link to={registerPath} className="col-md-1">Register</Link>
             </nav>
         )
         hashHistory.push(signInPath);

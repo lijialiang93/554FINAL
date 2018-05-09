@@ -19,8 +19,10 @@ class SearchIndex extends Component {
 
     render() {
         return (
-            <div>
+            <div className="panel panel-default">
+                <div className="panel-body">
                 <SearchForm onSearch={this.onSearch}></SearchForm>
+                    </div>
                 <SearchResult movieName={this.state.movieName}></SearchResult>
             </div>
         );

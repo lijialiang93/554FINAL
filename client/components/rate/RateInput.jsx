@@ -5,7 +5,7 @@ class RateInput extends Component {
         super(props);
         this.state = {
             author: sessionStorage.getItem('currentUser'),
-            rate: 0,
+            rate: 1,
             movie: this.props.movie
         };
     }

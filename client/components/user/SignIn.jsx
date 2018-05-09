@@ -37,32 +37,37 @@ class SignIn extends Component {
 
     render() {
         return (
-            <form onSubmit={(e) => { this.onSubmit(e) }}>
+            <div className="container">
+                <form className="form-signin" onSubmit={(e) => { this.onSubmit(e) }}>
+                    <span className="form-signin-heading"> <h1 className="text-center">User Login</h1></span>
+                    <div className="pt-5 pb-3">
+                        <input
+                            type="text"
+                            value={this.state.email}
+                            onChange={(e) => { this.onEmailChange(e) }}
+                            id="email"
+                            placeholder="Email"
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="pt-5 pb-3">
+                        <input
+                            type="password"
+                            value={this.state.password}
+                            onChange={(e) => { this.onPasswordChange(e) }}
+                            id="password"
+                            placeholder="Password"
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="pt-5 pb-3">
+                        <button type="submit" className="btn btn-lg btn-primary btn-block " id="submitBtn">
+                            Login
+                        </button>
+                    </div>
 
-                <label htmlFor="email">
-                    Email:
-                    </label>
-                <input
-                    type="text"
-                    value={this.state.email}
-                    onChange={(e) => { this.onEmailChange(e) }}
-                    id="email"
-                />
-                <br/>
-                <label htmlFor="password">
-                    Password:
-                    </label>
-                <input
-                    type="password"
-                    value={this.state.password}
-                    onChange={(e) => { this.onPasswordChange(e) }}
-                    id="password"
-                />
-                <br/>
-                <button type="submit" className="btn btn-primary ml-3" id="submitBtn">
-                    Submit
-               </button>
-            </form>
+                </form>
+            </div>
         );
     }
 }

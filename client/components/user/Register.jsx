@@ -35,7 +35,7 @@ class Register extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <RegisterInput result={this.state.success} onSubmit={this.onSubmit}></RegisterInput>
                 <RegisterResult data={this.state.data} getResult={this.getResult}></RegisterResult>
             </div>

@@ -25,20 +25,24 @@ class SearchForm extends Component {
 
     render() {
         return (
-            <form onSubmit={(e) => { this.onSubmit(e) }}>
-
-                <label htmlFor="movieName">
-                    What movie do you want to search for?
-                    </label>
-                <input
-                    type="text"
-                    value={this.state.searchQuery}
-                    onChange={(e) => { this.onSearchQueryChange(e) }}
-                    id="movieName"
-                />
-                <button type="submit" className="btn btn-primary ml-3" id="searchBtn">
-                    Search
-               </button>
+            <form className="form-horizontal" onSubmit={(e) => { this.onSubmit(e) }}>
+                <div className="form-group">
+                    <div className="col-sm-11 float-left" >
+                        <input
+                            type="text"
+                            value={this.state.searchQuery}
+                            className="form-control"
+                            onChange={(e) => { this.onSearchQueryChange(e) }}
+                            id="movieName"
+                            placeholder="What movie do you want to search for?"
+                        />
+                    </div>
+                    <div className="float-right">
+                        <button type="submit" className="btn btn-primary" id="searchBtn">
+                            Search
+                        </button>
+                    </div>
+                </div>
             </form>
         );
     }

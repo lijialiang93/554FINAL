@@ -12,10 +12,10 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-            <Nav/>
-            <SearchIndex />
-            <TopRatedMovies/>
+            <div className="container">
+                <Nav/>
+                <SearchIndex />
+                <TopRatedMovies/>
             </div>
         );
     }
