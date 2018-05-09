@@ -79,6 +79,14 @@ Movie.add({
         type: Number,
         hidden:true
     },
+    totalRating: {
+        type: Number,
+        hidden:true
+    },
+    totalRatedPeople: {
+        type: Number,
+        hidden:true
+    }
 });
 
 // Setting the default order of the columns on the admin tab

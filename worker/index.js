@@ -43,6 +43,16 @@ redisConnection.on("send-message-with-reply:request:*", async (message, channel)
                 eventName: eventName
             });
             break;
+        case "updateTotalRating":
+            let movieId = message.data.movieId;
+            let newRating = message.data.newRating;
+            let updateResult = await movieData.updateTotalRating(movieId,newRating);
+            redisConnection.emit(successEvent, {
+                requestId: requestId,
+                data: updateResult,
+                eventName: eventName
+            });
+            break;
         default:
             break;
     }
@@ -130,7 +140,7 @@ redisConnection.on("rate-data-with-reply:request:*", async (message, channel) =>
     let rateResult;
     switch (type) {
         case "getRateByMovie":
-        rateResult = await rateData.getRateByMovie(searchQuery);
+            rateResult = await rateData.getRateByMovie(searchQuery);
             redisConnection.emit(successEvent, {
                 requestId: requestId,
                 data: rateResult,
@@ -138,7 +148,7 @@ redisConnection.on("rate-data-with-reply:request:*", async (message, channel) =>
             });
             break;
         case "getRateByAuthor":
-        rateResult = await rateData.getRateByAuthor(searchQuery);
+            rateResult = await rateData.getRateByAuthor(searchQuery);
             redisConnection.emit(successEvent, {
                 requestId: requestId,
                 data: rateResult,

@@ -72,7 +72,7 @@ exports = module.exports = function (app) {
 				data: {
 					type: "getTopRatedMovies",
 					//number of top rated movie
-					searchQuery: 2
+					searchQuery: 3
 				}
 			});
 			let reply = {
@@ -297,11 +297,22 @@ exports = module.exports = function (app) {
 	app.post('/api/addRate', async (req, res) => {
 		try {
 			let rateData = req.body;
-			new Rate.model({
+			await new Rate.model({
 				author: rateData.author,
 				rate: rateData.rate,
 				movie: rateData.movie
 			}).save();
+
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "send-message-with-reply",
+				data: {
+					type: "updateTotalRating",
+					newRating: rateData.rate,
+					movieId: rateData.movie
+				}
+			});
+			
 			res.json({ message: "RATE ADD SUCCESSFUL!" });
 			
 		} catch (error) {

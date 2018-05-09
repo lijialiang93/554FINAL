@@ -37,7 +37,9 @@ exports = module.exports = function (done) {
         runningTime: 134,
         stars: 'Chadwick Boseman, Michael B. Jordan, Lupita Nyongo',
         storyline: 'After the events of Captain America: Civil War, King TChalla returns home to the reclusive, technologically advanced African nation of Wakanda to serve as his countrys new leader. However, TChalla soon finds that he is challenged for the throne from factions within his own country. When two foes conspire to destroy Wakanda, the hero known as Black Panther must team up with C.I.A. agent Everett K. Ross and members of the Dora Milaje, Wakandan special forces, to prevent Wakanda from being dragged into a world war. Written by Editor',
-        rating: 1
+        rating: 1,
+        totalRating:1,
+        totalRatedPeople:1
     }).save();
 
     new Movie.model({
@@ -54,7 +56,9 @@ exports = module.exports = function (done) {
         runningTime: 149,
         stars: 'Robert Downey Jr., Chris Hemsworth, Mark Ruffalo',
         storyline: 'As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain. Written by Marvel Studios',
-        rating: 2
+        rating: 2,
+        totalRating:2,
+        totalRatedPeople:1
     }).save();
 
     new Movie.model({
@@ -71,6 +75,8 @@ exports = module.exports = function (done) {
         runningTime: 140,
         stars: 'Tye Sheridan, Olivia Cooke, Ben Mendelsohn',
         storyline: 'In the year 2045, the real world is a harsh place. The only time Wade Watts (Tye Sheridan) truly feels alive is when he escapes to the OASIS, an immersive virtual universe where most of humanity spends their days. In the OASIS, you can go anywhere, do anything, be anyone-the only limits are your own imagination. The OASIS was created by the brilliant and eccentric James Halliday (Mark Rylance), who left his immense fortune and total control of the Oasis to the winner of a three-part contest he designed to find a worthy heir. When Wade conquers the first challenge of the reality-bending treasure hunt, he and his friends-aka the High Five-are hurled into a fantastical universe of discovery and danger to save the OASIS. Written by Warner Bros.',
-        rating: 3
+        rating: 3,
+        totalRating:3,
+        totalRatedPeople:1
     }).save(done);
 };

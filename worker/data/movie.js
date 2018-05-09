@@ -4,7 +4,43 @@ let movieSchema = new mongoose.Schema({}, { strict: false });
 let Movie = mongoose.model('Movie', movieSchema);
 
 const exportedMethods = {
+    async updateTotalRating(id, newRating) {
+        try {
 
+            var ratedMovie = await Movie.findOne({ '_id': id });
+
+            if (ratedMovie !== undefined) {
+                let totalRating = parseInt(ratedMovie.get('totalRating'));
+                let totalRatedPeople = parseInt(ratedMovie.get('totalRatedPeople'));
+                totalRating += parseInt(newRating);
+                totalRatedPeople++;
+                rating = totalRating / totalRatedPeople;
+                const updateCommand = {
+                    $set: {
+                        'totalRating': totalRating,
+                        'totalRatedPeople': totalRatedPeople,
+                        'rating': rating
+                    }
+                };
+                const query = {
+                    _id: id,
+                };
+                let result = await Movie.updateOne(query, updateCommand);
+                if (result.ok == 1) {
+                    return 'success';
+                }
+                else {
+                    return 'failed';
+                }
+
+            }
+
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    },
     async getTopRatedMovies(number) {
 
         try {
@@ -17,7 +53,7 @@ const exportedMethods = {
     async getMovieByName(name) {
 
         try {
-            return await Movie.find({ 'name':{ $regex : new RegExp(name, "i") }});
+            return await Movie.find({ 'name': { $regex: new RegExp(name, "i") } });
         } catch (error) {
             console.log(error);
         }
