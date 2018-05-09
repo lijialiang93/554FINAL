@@ -15,6 +15,7 @@ import App from './components/App';
 import Register from './components/user/Register';
 import SignIn from './components/user/SignInPage';
 import UserInfo from './components/user/UserInfo';
+import EditUserInfo from './components/user/EditUserInfo';
 import Nav from './components/nav/Nav';
 
 
@@ -33,6 +34,7 @@ ReactDOM.render(
       <Route path="/user/register" component={Register}></Route>
       <Route path="/user/signin" component={SignIn}></Route>
       <Route path="/user/viewinfo" component={UserInfo}></Route>
+      <Route path="/user/editinfo" component={EditUserInfo}></Route>
     </Router>
   </Provider>,
   document.querySelector('.react-container'));

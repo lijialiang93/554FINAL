@@ -63,6 +63,11 @@ function checkUserStatus(req, res) {
 
 // Export our app routes
 exports = module.exports = function (app) {
+	app.all('*', async (req, res, next) => {
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "X-Requested-With");
+		next();
+	});
 	// Get access to the API route in our app
 	app.get('/api/getTopRated', async function (req, res) {
 		try {
@@ -226,10 +231,80 @@ exports = module.exports = function (app) {
 		}
 	});
 
+	app.post('/api/updateUserByEmail', async (req, res) => {
+		try {
+			let receivedUserData = req.body;
+			let avatarImage = req.files.selectedImage;
+			let dbQuery = {email: receivedUserData.email};
+			let originalUserData = await User.model.findOne(dbQuery);
+			if (originalUserData !== null && receivedUserData !== undefined && avatarImage === undefined) {
+				if (receivedUserData.newPassword === undefined) {
+					await User.model.updateOne(dbQuery, receivedUserData);
+				}
+				if (receivedUserData.newPassword !== undefined) {
+					originalUserData.password = receivedUserData.newPassword;
+					await originalUserData.save();
+					await User.model.updateOne(dbQuery, receivedUserData);
+				}
+				return res.json({ result: "Your information has been updated successfully!"});
+			}
+			else if (originalUserData !== null && receivedUserData !== undefined && avatarImage !== undefined) {
+				if (receivedUserData.newPassword === undefined) {
+					let fileName = null;
+					im.resize({
+						srcData: fs.readFileSync(avatarImage.path, 'binary'),
+						width: 300,
+						height: 300
+					}, async (err, stdout, stderr) => {
+						if (err) throw err;
+						fileName = uuid() + '.' + avatarImage.extension;
+						let writePath = __dirname + '/../public/img/avatar/' + fileName;
+						fs.writeFileSync(writePath, stdout, 'binary');
+						receivedUserData.image = {
+							filename: fileName,
+							size: avatarImage.size,
+							mimetype: avatarImage.mimetype
+						};
+						let result = await User.model.updateOne(dbQuery, receivedUserData);
+						console.log(result);
+					});
+				}
+				if (receivedUserData.newPassword !== undefined) {
+					originalUserData.password = receivedUserData.newPassword;
+					await originalUserData.save();
+					let fileName = null;
+					im.resize({
+						srcData: fs.readFileSync(avatarImage.path, 'binary'),
+						width: 300,
+						height: 300
+					}, async (err, stdout, stderr) => {
+						if (err) throw err;
+						fileName = uuid() + '.' + avatarImage.extension;
+						let writePath = __dirname + '/../public/img/avatar/' + fileName;
+						fs.writeFileSync(writePath, stdout, 'binary');
+						receivedUserData.image = {
+							filename: fileName,
+							size: avatarImage.size,
+							mimetype: avatarImage.mimetype
+						};
+						let result = await User.model.updateOne(dbQuery, receivedUserData);
+						console.log(result);
+					});
+				}
+				return res.json({ result: "Your information has been updated successfully!"});
+			}
+			else {
+				return res.json({ result: "Something went wrong!"});
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	});
+
 	app.post('/api/addReview', async (req, res) => {
 		try {
 			let reviewData = req.body;
-			new Review.model({
+			await new Review.model({
 				author: reviewData.author,
 				content: reviewData.content,
 				movie: reviewData.movie
