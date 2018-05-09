@@ -2,6 +2,7 @@ var keystone = require('keystone');
 var User = keystone.list('User');
 var Movie = keystone.list('Movie');
 var Review = keystone.list('Review');
+var Rate = keystone.list('Rate');
 exports = module.exports = function (done) {
     new User.model({
         name: 'admin',
@@ -71,11 +72,5 @@ exports = module.exports = function (done) {
         stars: 'Tye Sheridan, Olivia Cooke, Ben Mendelsohn',
         storyline: 'In the year 2045, the real world is a harsh place. The only time Wade Watts (Tye Sheridan) truly feels alive is when he escapes to the OASIS, an immersive virtual universe where most of humanity spends their days. In the OASIS, you can go anywhere, do anything, be anyone-the only limits are your own imagination. The OASIS was created by the brilliant and eccentric James Halliday (Mark Rylance), who left his immense fortune and total control of the Oasis to the winner of a three-part contest he designed to find a worthy heir. When Wade conquers the first challenge of the reality-bending treasure hunt, he and his friends-aka the High Five-are hurled into a fantastical universe of discovery and danger to save the OASIS. Written by Warner Bros.',
         rating: 3
-    }).save(done);
-
-    new Review.model({
-        author:'user@keystonejs.com',
-        content:'Good One!',
-        movie:'5aefebcf2be025348819b87a'
     }).save(done);
 };

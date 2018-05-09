@@ -7,6 +7,7 @@ import addReviewResult from './review_actions/add_review';
 import getReviewByAuthor from './review_actions/get_review_by_author';
 import getReviewByMovie from './review_actions/get_review_by_movie';
 import getTopRatedMovies from './movie_actions/get_toprated_movies';
+import addRateResult from './rate_actions/add_rate';
 
 const reducers = combineReducers({
 	movieResult: getMovieByName,
@@ -16,7 +17,8 @@ const reducers = combineReducers({
 	addReviewResult: addReviewResult,
 	ReviewResultByAuthor: getReviewByAuthor,
 	ReviewResultByMovie: getReviewByMovie,
-	topRatedMovies:getTopRatedMovies
+	topRatedMovies:getTopRatedMovies,
+	addRateResult: addRateResult
 });
 
 export default reducers;

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { moviesFetchDataById } from "../../actions/actions";
 import AddReview from "../review/AddReview";
 import ReviewResult from "../review/ReviewResult";
+import Rate from '../rate/Rate';
 class MovieInfo extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,8 @@ class MovieInfo extends Component {
       movieId: null,
       movieData: null,
       reviewList:null,
-      user: null
+      user: null,
+      rate: 0
     };
   }
 
@@ -38,6 +40,14 @@ class MovieInfo extends Component {
           {reviewList: res.data.review
           });
       });
+    axios
+      .get("http://localhost:3000/api/searchRateByMovie?movie="+id).
+      then(res=>{
+        this.setState(
+          {rate: res.data.rate
+          });
+      });
+      
   }
 
   render() {
@@ -80,6 +90,7 @@ class MovieInfo extends Component {
       <div key={data._id}>
         <h1>{data.name}</h1>
         <img style={{ width: "300px", height: "300px" }} src={img} />
+        <h2>Rate: {this.state.rate} </h2>
         <h2>Director</h2>
         <div dangerouslySetInnerHTML={createMarkupForDirector()} />
         <h2>Genre: {data.genre}</h2>
@@ -92,7 +103,7 @@ class MovieInfo extends Component {
         <ReviewResult movie={data._id}/>
         <AddReview movie={data._id}/>
         <h2>Rating:  {data.rating}</h2>
-
+        <Rate movie={data._id}/>
       </div>
     );
   }

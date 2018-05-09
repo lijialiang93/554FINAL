@@ -1,6 +1,7 @@
 // We will need to require Keystone first
 const keystone = require('keystone');
 const Review = keystone.list('Review');
+const Rate = keystone.list('Rate');
 const uuid = require('uuid/v4');
 const fs = require('fs');
 const User = keystone.list('User');
@@ -232,8 +233,6 @@ exports = module.exports = function (app) {
 				}
 			});
 
-			console.log("api "+req.query.movie);
-
 			let reply = {
 				review: response
 			};
@@ -257,7 +256,7 @@ exports = module.exports = function (app) {
 				eventName: "review-data-with-reply",
 				data: {
 					type: "getReviewByAuthor",
-					searchQuery: [req.query.author,req.query.movie]
+					searchQuery: ({author:req.query.author,movie:req.query.movie})
 				}
 			});
 			let reply = {
@@ -274,6 +273,81 @@ exports = module.exports = function (app) {
 		}
 		
 	});
+
+	app.post('/api/addRate', async (req, res) => {
+		try {
+			let rateData = req.body;
+			new Rate.model({
+				author: rateData.author,
+				rate: rateData.rate,
+				movie: rateData.movie
+			}).save();
+			res.json({ message: "RATE ADD SUCCESSFUL!" });
+			
+		} catch (error) {
+			console.log(error);
+		}
+	});
+
+	app.get('/api/searchRateByMovie', async (req, res) => {
+
+		try {
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "rate-data-with-reply",
+				data: {
+					type: "getRateByMovie",
+					searchQuery: req.query.movie
+				}
+			});
+			let sum = 0;
+			for (let i = 0;i<response.length ; i++) {
+				sum = sum + response[i].rate;
+				console.log(response[i].rate);
+			  }
+
+			let average = sum/(response.length);
+			let reply = {
+				rate: average
+			};
+			if (reply.review !== null) {
+				res.json(reply);
+			}
+			else {
+				return res.json({ rate: 0 });
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		
+	});
+
+	app.get('/api/searchRateByAuthor', async (req, res) => {
+
+		try {
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "rate-data-with-reply",
+				data: {
+					type: "getRateByAuthor",
+					searchQuery: ({author:req.query.author,movie:req.query.movie})
+				}
+			});
+			let reply = {
+				rate: response
+			};
+			if (reply.review !== null) {
+				res.json(reply);
+			}
+			else {
+				return res.json({ rate: "NOT RATED" });
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		
+	});
+
 
 	app.get('/api/userStatusCheck', checkUserStatus);
 	app.post('/api/userSignIn', signin);

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import AddReviewInput from './AddReviewInput';
-import AddReviewResult from './AddReviewResult';
+import RateInput from './RateInput';
+import RateResult from './RateResult';
 import axios from "axios";
 
-class AddReView extends Component {
+class Rate extends Component {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
@@ -13,22 +13,24 @@ class AddReView extends Component {
             isLoggedIn: sessionStorage.getItem('loggedIn') === 'true',
             done : false,
             author: sessionStorage.getItem('currentUser'),
+            rate: 0,
         };
     }
 
-    onSubmit(reviewData) {
+    onSubmit(rateData) {
         this.setState({
-            data: reviewData
+            data: rateData
         });
     };
 
     componentWillMount() {
         axios
-      .get("http://localhost:3000/api/searchReviewByAuthor?movie="+this.state.movie+"&author="+this.state.author).
+      .get("http://localhost:3000/api/searchRateByAuthor?movie="+this.state.movie+"&author="+this.state.author).
       then(res=>{
-        if(res.data.review.length>0)
+          if(res.data.rate.length>0)
         this.setState(
           {done: true,
+            rate : res.data.rate[0].rate
           });
       });
     }
@@ -37,14 +39,14 @@ class AddReView extends Component {
         if(this.state.isLoggedIn){
             if(this.state.done){
                 return(
-                    <div>You have made review</div>
+                    <div>The Rate you chosen is {this.state.rate}</div>
                 )
             }else
             return (
                 <div>
-                    <h2>New Review:</h2><br />
-                    <AddReviewInput onSubmit={this.onSubmit} movie={this.state.movie}></AddReviewInput>
-                    <AddReviewResult data={this.state.data} ></AddReviewResult>
+                    <h2>New Rate:</h2><br />
+                    <RateInput onSubmit={this.onSubmit} movie={this.state.movie}></RateInput>
+                    <RateResult data={this.state.data} ></RateResult>
                 </div>
             );
         }
@@ -57,4 +59,4 @@ class AddReView extends Component {
 }
 
 
-export default AddReView;
+export default Rate;

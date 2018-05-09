@@ -4,6 +4,7 @@ const data = require("./data");
 const movieData = data.movie;
 const userData = data.user;
 const reviewData = data.review;
+const rateData = data.rate;
 
 redisConnection.on("send-message-with-reply:request:*", async (message, channel) => {
     let requestId = message.requestId;
@@ -87,7 +88,7 @@ redisConnection.on("review-data-with-reply:request:*", async (message, channel) 
     let reviewResult;
     switch (type) {
         case "getReviewByMovie":
-            reviewResult = await reviewData.getReviedwByMovie(searchQuery);
+            reviewResult = await reviewData.getReviewByMovie(searchQuery);
             redisConnection.emit(successEvent, {
                 requestId: requestId,
                 data: reviewResult,
@@ -95,10 +96,44 @@ redisConnection.on("review-data-with-reply:request:*", async (message, channel) 
             });
             break;
         case "getReviewByAuthor":
-            reviewResult = await reviewData.getReviedwByAuthor(searchQuery);
+            reviewResult = await reviewData.getReviewByAuthor(searchQuery);
             redisConnection.emit(successEvent, {
                 requestId: requestId,
                 data: reviewResult,
+                eventName: eventName
+            });
+            break;
+        default:
+            break;
+    }
+});
+
+redisConnection.on("rate-data-with-reply:request:*", async (message, channel) => {
+    let requestId = message.requestId;
+    let eventName = message.eventName;
+
+    let messageText = message.data.message;
+    let successEvent = `${eventName}:success:${requestId}`;
+    let failedEvent = `${eventName}:failed:${requestId}`;
+
+
+    let type = message.data.type;
+    let searchQuery = message.data.searchQuery;
+    let rateResult;
+    switch (type) {
+        case "getRateByMovie":
+        rateResult = await rateData.getRateByMovie(searchQuery);
+            redisConnection.emit(successEvent, {
+                requestId: requestId,
+                data: rateResult,
+                eventName: eventName
+            });
+            break;
+        case "getRateByAuthor":
+        rateResult = await rateData.getRateByAuthor(searchQuery);
+            redisConnection.emit(successEvent, {
+                requestId: requestId,
+                data: rateResult,
                 eventName: eventName
             });
             break;

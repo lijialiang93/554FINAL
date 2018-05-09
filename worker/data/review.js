@@ -5,7 +5,7 @@ let Review = mongoose.model('Review', reviewSchema);
 
 const exportedMethods = {
 
-    async getReviedwByMovie(movie) {
+    async getReviewByMovie(movie) {
 
         try {
             return await Review.find({ 'movie' : movie });
@@ -14,10 +14,10 @@ const exportedMethods = {
         }
 
     },
-    async getReviedwByAuthor(author,movie) {
+    async getReviewByAuthor(data) {
 
         try {
-            return await Review.find({ 'author' : author,'movie' : movie });
+            return await Review.find({ 'author' : data.author,'movie' : data.movie });
         } catch (error) {
             console.log(error);
         }

@@ -11,6 +11,7 @@ export const ADD_REVIEW = 'ADD_REVIEW';
 export const GET_REVIEW_BY_MOVIE = 'GET_REVIEW_BY_MOVIE';
 export const GET_REVIEW_BY_AUTHOR = 'GET_REVIEW_BY_AUTHOR';
 export const GET_TOP_RATED = 'GET_TOP_RATED';
+export const ADD_RATE = 'ADD_RATE';
 // An action to check if the recipes are loaded accepts true or false
 
 
@@ -65,6 +66,13 @@ export function getReviewByAuthor(data) {
     payload: data
   };
 }
+export function addRate(data) {
+  return {
+    type: ADD_RATE,
+    payload: data
+  };
+}
+
 
 // This is a redux thunk that will fetch our model data
 export function moviesFetchTopRatedData(url) {
@@ -209,6 +217,24 @@ export function ReviewFetchDataByAuthor(url, searchQuery) {
 
     request.then((response) => {
       dispatch(getReviewByAuthor(response.data));
+    });
+  };
+}
+
+export function addRateFetchResult(url, rateData) {
+  return (dispatch) => {
+    var getResult = axios.create({
+      baseURL: 'http://localhost:3000/api'
+    });
+
+    const request = getResult.post(url, {
+      author: rateData.author,
+      rate: rateData.rate,
+      movie: rateData.movie
+    });
+
+    request.then((response) => {
+      dispatch(addRate(response.data));
     });
   };
 }
