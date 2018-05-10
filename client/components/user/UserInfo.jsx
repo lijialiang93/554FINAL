@@ -63,6 +63,7 @@ class UserInfo extends Component {
     return (
       <div className="container pt-5 pb-5" key={data._id}>
           <div className="text-right pb-5">
+              <Link to='/'>Back to Homepage</Link>
               <Link to={editInfoPath}>Edit User Information</Link>
           </div>
           <div className="row pt-5 border border-primary rounded">

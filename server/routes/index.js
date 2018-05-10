@@ -1,14 +1,14 @@
 // We will need to require Keystone first
 const keystone = require('keystone');
-const Review = keystone.list('Review');
-const Rate = keystone.list('Rate');
 const uuid = require('uuid/v4');
 const fs = require('fs');
-const User = keystone.list('User');
-// Then to get access to our API route we will use importer
-const importRoutes = keystone.importer(__dirname);
 // ImageMagick
 const im = require('imagemagick');
+const User = keystone.list('User');
+const Review = keystone.list('Review');
+const Rate = keystone.list('Rate');
+// Then to get access to our API route we will use importer
+const importRoutes = keystone.importer(__dirname);
 const redisConnection = require("./redis-connection");
 const nrpSender = require("./nrp-sender-shim");
 
@@ -479,7 +479,7 @@ exports = module.exports = function (app) {
 			</head>
         <body>
        		 <div class="react-container">
-        </div>
+		</div>
 				<script src="index.bundle.js"></script>
 				<script src="tota11y.min.js"></script>
 			</body>

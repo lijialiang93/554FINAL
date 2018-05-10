@@ -29,8 +29,15 @@ class SignInResult extends Component {
                 success: newProps.loginResult.success,
                 email: newProps.loginResult.email
             });
-            sessionStorage.setItem("loggedIn", true);
-            sessionStorage.setItem("currentUser", newProps.loginResult.email);
+            if (newProps.loginResult.session) {
+                sessionStorage.setItem("loggedIn", true);
+                sessionStorage.setItem("currentUser", newProps.loginResult.email);
+                this.props.getResult(true);
+            }
+            else {
+                sessionStorage.setItem("loggedIn", false);
+                this.props.getResult(false);
+            }
         }
     }
 
@@ -45,6 +52,7 @@ class SignInResult extends Component {
             return (
                 <div className="text-center">
                 {this.state.email + " have logged in!"}
+                <br/>
                 <Link to={path}>Back to Homepage</Link>
                 </div>
             );

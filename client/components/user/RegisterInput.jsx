@@ -36,7 +36,7 @@ class RegisterInput extends Component {
             let userData = {
                 username: this.state.username,
                 password: this.state.password,
-                email: this.state.email,
+                email: xss(this.state.email),
                 selectedImage: this.state.selectedImage,
             };
             this.props.onSubmit(userData);
@@ -47,7 +47,7 @@ class RegisterInput extends Component {
 
     onUsernameChange(e) {
         this.setState({
-            username: xss(e.target.value)
+            username: e.target.value
         });
     };
 
@@ -59,13 +59,13 @@ class RegisterInput extends Component {
 
     onEmailChange(e) {
         this.setState({
-            email: xss(e.target.value)
+            email: e.target.value
         });
     };
 
     onPhotoChange(e) {
         this.setState({
-            fileName: xss(e.target.value),
+            fileName: e.target.value,
             selectedImage: e.target.files[0]
         });
         if (e.target.files && e.target.files[0]) {
@@ -83,6 +83,9 @@ class RegisterInput extends Component {
 
 
     render() {
+        if (this.state.result === true) {
+            return false;
+        }
         return (
             <form className="form-horizontal" id="registerForm" encType="multipart/form-data" onSubmit={(e) => { this.onSubmit(e) }} >
                 <span className="form-signin-heading"> <h1 className="text-center pb-5">User Register</h1></span>

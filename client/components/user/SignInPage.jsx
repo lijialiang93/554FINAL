@@ -6,8 +6,10 @@ class SignInPage extends Component {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
+        this.getResult = this.getResult.bind(this);
         this.state = {
-            data: null
+            data: null,
+            regSuccess: false
         };
     }
 
@@ -17,11 +19,17 @@ class SignInPage extends Component {
         });
     };
 
+    getResult(result) {
+        this.setState({
+            regSuccess: result
+        });
+    }
+
     render() {
         return (
             <div className="container">
-                <SignIn onSubmit={this.onSubmit}></SignIn>
-                <SignInResult data={this.state.data}></SignInResult>
+                <SignIn result={this.state.regSuccess} onSubmit={this.onSubmit}></SignIn>
+                <SignInResult data={this.state.data} getResult={this.getResult}></SignInResult>
             </div>
         );
     }
