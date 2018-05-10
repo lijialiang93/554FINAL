@@ -19,7 +19,7 @@ class SignInPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <SignIn onSubmit={this.onSubmit}></SignIn>
                 <SignInResult data={this.state.data}></SignInResult>
             </div>

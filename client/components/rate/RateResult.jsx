@@ -30,11 +30,11 @@ class RateResult extends Component {
         const renderResult = this.state.result;
         if (renderResult != "" && this.state.success) {
             return (
-                <div>{renderResult}</div>
+                <td>{renderResult}</td>
             );
         }
         else {
-            return (<div></div>);
+            return (<td></td>);
         }
     }
 }

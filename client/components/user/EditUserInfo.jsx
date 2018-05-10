@@ -115,56 +115,43 @@ class EditUserInfo extends Component {
     const img = data.image ? data.image.filename : "";
 
     return (
-      <form
-        id="registerForm"
-        encType="multipart/form-data"
-        onSubmit={e => {
-          this.onSubmit(e);
-        }}
-      >
-        <label htmlFor="email">Email:</label>
-        <input type="text" value={this.state.email} id="email" disabled />
-        <br />
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          value={this.state.username}
-          onChange={e => {
-            this.onUsernameChange(e);
-          }}
-          id="username"
-        />
-        <br />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          value={this.state.password}
-          onChange={e => {
-            this.onPasswordChange(e);
-          }}
-          id="password"
-        />
-        <br />
-        <label htmlFor="photo">
-          Upload your new photo (if you want to change your avatar):
-        </label>
-        <input
-          type="file"
-          value={this.state.fileName}
-          accept="image/*"
-          onChange={e => {
-            this.onPhotoChange(e);
-          }}
-          id="photo"
-        />
-        <br />
-        <img id="preview" />
-        <br />
-        <button type="submit" className="btn btn-primary ml-3" id="submitBtn">
-          Submit
-        </button>
-        <div>{this.state.message}</div>
-      </form>
+        <div className="container">
+          <form className="form-horizontal"
+            id="registerForm"
+            encType="multipart/form-data"
+            onSubmit={e => {
+              this.onSubmit(e);
+            }}
+          >
+              <span className="form-signin-heading"> <h1 className="text-center pb-5">Edit User Information</h1></span>
+              <table width={'100%'} height={'200px'}>
+                  <tbody>
+                  <tr>
+                      <td><label htmlFor="email">Email:</label></td>
+                      <td><input type="text" value={this.state.email} id="email" disabled /></td>
+                  </tr>
+                  <tr>
+                      <td><label htmlFor="username">Username:</label></td>
+                      <td><input type="text" value={this.state.username} onChange={e => {this.onUsernameChange(e);}} id="username"/></td>
+                  </tr>
+                  <tr>
+                      <td><label htmlFor="password">Password:</label></td>
+                      <td><input type="password" value={this.state.password} onChange={e => {this.onPasswordChange(e);}} id="password"/></td>
+                  </tr>
+                  <tr>
+                      <td><label htmlFor="photo">Upload your new photo (if you want to change your avatar):</label></td>
+                      <td><input type="file" value={this.state.fileName} accept="image/*" onChange={e => {this.onPhotoChange(e);}} id="photo"/></td>
+                  </tr>
+                  </tbody>
+              </table>
+              <img className="pb-5" id="preview" />
+              <br />
+              <button type="submit" className="btn btn-lg btn-primary btn-block"  id="submitBtn">
+              Submit
+              </button>
+              <div>{this.state.message}</div>
+          </form>
+            </div>
     );
   }
 }

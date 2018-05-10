@@ -43,15 +43,17 @@ class SignInResult extends Component {
                 state: this.state.userId
             };
             return (
-                <div>{this.state.email + " have logged in!"}
-                <br/>
+                <div className="text-center">
+                {this.state.email + " have logged in!"}
                 <Link to={path}>Back to Homepage</Link>
                 </div>
             );
             hashHistory.push(path);
         }
         else {
-            return (<div>{this.state.result}</div>);
+            return (
+                <div className="text-center">{this.state.result}</div>
+            );
         }
     }
 }

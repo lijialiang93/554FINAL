@@ -88,23 +88,50 @@ class MovieInfo extends Component {
     }
 
     return (
-      <div key={data._id}>
-        <h1>{data.name}</h1>
-        <img style={{ width: "300px", height: "300px" }} src={img} />
-        <h2>Rate: {this.state.rate} </h2>
-        <h2>Director</h2>
-        <div dangerouslySetInnerHTML={createMarkupForDirector()} />
-        <h2>Genre: {data.genre}</h2>
-        <h2>MPAA: {data.mpaa}</h2>
-        <h2>Running Time: {data.runningTime} mins</h2>
-        <h2>Stars</h2>
-        <div dangerouslySetInnerHTML={createMarkupForStars()} />
-        <h2>Storyline</h2>
-        <div dangerouslySetInnerHTML={createMarkupForStoryline()} />
-        <ReviewResult movie={data._id}/>
-        <AddReview movie={data._id}/>
-        <h2>Rating:  {data.rating}</h2>
-        <Rate movie={data._id}/>
+      <div className="container border border-primary rounded" key={data._id}>
+          <div className="row pt-5 ">
+            <div className="col-sm-4 pt-5">
+                <img style={{ width: "300px", height: "300px" }} src={img} />
+            </div>
+            <div className="col-sm-4 ">
+                <span><h1 className="text-center">{data.name}</h1></span>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td><h4>Director： </h4></td>
+                        <td><div dangerouslySetInnerHTML={createMarkupForDirector()} /></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Genre:  </h4></td>
+                        <td>{data.genre}</td>
+                    </tr>
+                    <tr>
+                        <td><h4>MPAA:  </h4></td>
+                        <td>{data.mpaa}</td>
+                    </tr>
+                    <tr>
+                        <td><h4>Running Time: </h4></td>
+                        <td>{data.runningTime} minutes</td>
+                    </tr>
+                    <tr>
+                        <td><h4>Stars: </h4></td>
+                        <td><div dangerouslySetInnerHTML={createMarkupForStars()} /></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Storyline:  </h4></td>
+                        <td><div dangerouslySetInnerHTML={createMarkupForStoryline()} /></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Rating:</h4></td>
+                        <td>{data.rating}</td>
+                    </tr>
+                    <Rate movie={data._id}/>
+                    </tbody>
+                </table>
+              </div>
+          </div>
+          <ReviewResult movie={data._id}/>
+
       </div>
     );
   }

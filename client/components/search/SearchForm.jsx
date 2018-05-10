@@ -26,8 +26,8 @@ class SearchForm extends Component {
     render() {
         return (
             <form className="form-horizontal" onSubmit={(e) => { this.onSubmit(e) }}>
-                <div className="form-group">
-                    <div className="col-sm-11 float-left" >
+                <div className="form-group row">
+                    <div className="col-sm-11" >
                         <input
                             type="text"
                             value={this.state.searchQuery}
@@ -37,7 +37,7 @@ class SearchForm extends Component {
                             placeholder="What movie do you want to search for?"
                         />
                     </div>
-                    <div className="float-right">
+                    <div className="col-sm-1">
                         <button type="submit" className="btn btn-primary" id="searchBtn">
                             Search
                         </button>

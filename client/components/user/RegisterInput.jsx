@@ -40,6 +40,8 @@ class RegisterInput extends Component {
                 selectedImage: this.state.selectedImage,
             };
             this.props.onSubmit(userData);
+        } else {
+            alert('Please fill the blank!');
         }
     };
 
@@ -149,7 +151,7 @@ class RegisterInput extends Component {
                         </td>
                     </tr>
                 </table>
-                <img id="preview" />
+                <img className="pb-5" id="preview" />
                 <br />
                 <button type="submit" className="btn btn-lg btn-primary btn-block" id="submitBtn">
                     Submit

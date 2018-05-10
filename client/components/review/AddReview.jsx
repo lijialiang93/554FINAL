@@ -37,12 +37,11 @@ class AddReView extends Component {
         if(this.state.isLoggedIn){
             if(this.state.done){
                 return(
-                    <div>You have made review</div>
+                    <div className="pb-5"><h6>You have made review</h6></div>
                 )
             }else
             return (
-                <div>
-                    <h2>New Review:</h2><br />
+                <div className="pt-5 pb-5">
                     <AddReviewInput onSubmit={this.onSubmit} movie={this.state.movie}></AddReviewInput>
                     <AddReviewResult data={this.state.data} ></AddReviewResult>
                 </div>

@@ -41,7 +41,7 @@ class Nav extends Component {
         };
         if (this.state.isLoggedIn == false){
         return (
-            <nav className="float-right" style={{height: '100px'}}>
+            <nav className="text-right" style={{height: '50px'}}>
                 <a href="http://localhost:3000/keystone/signin" target="_blank" className="col-md-1">Log in</a>
                 <Link to={signInPath} className="col-md-1">Sign In</Link>
                 <Link to={registerPath} className="col-md-1">Register</Link>
@@ -52,10 +52,11 @@ class Nav extends Component {
         }
         else {
             return (
-                <div>Logged In! {this.state.username} <Link to={viewInfoPath}>View Personal Info</Link>
-                <br/>
-                <a href="http://localhost:3000/keystone/signout">Sign Out</a>
-                </div>
+                <nav className="text-right" style={{height: '50px'}}>
+                    <div>Logged In! {this.state.username} <Link to={viewInfoPath} className="col-md-1">View Personal Info</Link>
+                    <a href="http://localhost:3000/keystone/signout" className="col-md-1">Sign Out</a>
+                    </div>
+                </nav>
             );
         }
 

@@ -61,12 +61,31 @@ class UserInfo extends Component {
     };
 
     return (
-      <div key={data._id}>
-        <h1>{data.name}</h1>
-        <img style={{ width: "300px", height: "300px" }} src={img} />
-        <h2>Email: {data.email}</h2>
-        <h2>Username: {xss(data.name)}</h2>
-        <Link to={editInfoPath}>Edit User Info</Link>
+      <div className="container pt-5 pb-5" key={data._id}>
+          <div className="text-right pb-5">
+              <Link to={editInfoPath}>Edit User Information</Link>
+          </div>
+          <div className="row pt-5 border border-primary rounded">
+            <div className="col-sm-8 ">
+                <span><h1>{data.name}</h1></span>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td><h4>Email:</h4></td>
+                        <td>{data.email}</td>
+                    </tr>
+                    <tr>
+                        <td><h4>Username:</h4></td>
+                        <td>{xss(data.name)}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+              <div className="col-sm-4 ">
+                <img style={{ width: "300px", height: "300px" }} src={img} />
+              </div>
+          </div>
+
       </div>
     );
     hashHistory.push(editInfoPath);

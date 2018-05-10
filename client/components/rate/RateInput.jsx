@@ -35,6 +35,7 @@ class RateInput extends Component {
         return (
             <div>
                 <form onSubmit={(e) => { this.onSubmit(e) }}>
+                    <div className="row">
                 <div className="form-group">
                     <select className="form-control"
                         value={this.state.rate}
@@ -47,10 +48,13 @@ class RateInput extends Component {
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    </div> 
+                    </div>
+                        <div className="col-sm-1">
                 <button type="submit" className="btn btn-primary btn-sm" id="rateBtn">
                         submit
                 </button>
+                            </div>
+                        </div>
                 </form>
             </div>
         );

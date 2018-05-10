@@ -37,7 +37,7 @@ class SignIn extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div>
                 <form className="form-signin" onSubmit={(e) => { this.onSubmit(e) }}>
                     <span className="form-signin-heading"> <h1 className="text-center">User Login</h1></span>
                     <div className="pt-5 pb-3">
@@ -65,7 +65,6 @@ class SignIn extends Component {
                             Login
                         </button>
                     </div>
-
                 </form>
             </div>
         );

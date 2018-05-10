@@ -34,15 +34,24 @@ class AddReviewInput extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={(e) => { this.onSubmit(e) }}>
-                <textarea
-                value={this.state.content}
-                onChange={(e) => { this.onContentChange(e) }}
-                id="content">
-                </textarea>
-                <button type="submit" className="btn btn-primary btn-sm" id="submitBtn">
-                        submit
-                </button>
+                <form className="form-horizontal" onSubmit={(e) => { this.onSubmit(e) }}>
+                    <div className="row">
+                        <div className="align-items-center">
+                            <textarea
+                            value={this.state.content}
+                            onChange={(e) => { this.onContentChange(e) }}
+                            id="content"
+                            placeholder="Add your review!"
+                            cols="120"
+                            rows="3">
+                            </textarea>
+                        </div>
+                        <div className="col-sm-1">
+                        <button type="submit" className="btn btn-primary btn-sm" id="submitBtn">
+                                submit
+                        </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         );

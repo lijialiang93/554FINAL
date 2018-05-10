@@ -32,9 +32,9 @@ class TopRatedMovies extends Component {
         }
         else {
             return (
-                <div className="bg-primary">
+                <div className="pt-5">
                     <div>
-                        <h1>Top Rated Movies</h1>
+                        <h6>Top Rated Movies</h6>
                     </div>
                     <div className="row">
                         {topRatedList.map(movie => {

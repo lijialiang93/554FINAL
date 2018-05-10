@@ -39,15 +39,18 @@ class Rate extends Component {
         if(this.state.isLoggedIn){
             if(this.state.done){
                 return(
-                    <div>The Rate you chosen is {this.state.rate}</div>
+                    <tr>
+                        <td><h4>Your Rate: </h4></td>
+                        <td>{this.state.rate}</td>
+                    </tr>
                 )
             }else
             return (
-                <div>
-                    <h2>New Rate:</h2><br />
-                    <RateInput onSubmit={this.onSubmit} movie={this.state.movie}></RateInput>
+                <tr>
+                    <td><h4>New Rate:</h4></td>
+                    <td><RateInput onSubmit={this.onSubmit} movie={this.state.movie}></RateInput></td>
                     <RateResult data={this.state.data} ></RateResult>
-                </div>
+                </tr>
             );
         }
         else{

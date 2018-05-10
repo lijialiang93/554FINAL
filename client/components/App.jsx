@@ -12,7 +12,8 @@ class App extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container pt-5">
+                <h1 className="text-center">Movie Review System</h1>
                 <Nav/>
                 <SearchIndex />
                 <TopRatedMovies/>
