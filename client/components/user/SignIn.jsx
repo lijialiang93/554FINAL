@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import xss from 'xss';
+var $ = require('jquery');
 
 class SignIn extends Component {
     constructor(props) {
@@ -7,13 +8,27 @@ class SignIn extends Component {
         this.state = {
             password: "",
             email: "",
-            result: null
+            result: false
         };
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.setState({
+            result: newProps.result
+        }, () => {
+            if (this.state.result === true) {
+                $('#submitBtn').attr('disabled', 'disabled');
+                $('#registerForm :input').prop('disabled', true);
+            } else {
+                $('#submitBtn').attr('enabled', 'enabled');
+                $('#registerForm :input').prop('disabled', false);
+            }
+        });
     }
 
     onSubmit(e) {
         e.preventDefault();
-        if (this.state.password && this.state.email && this.state.result == null) {
+        if (this.state.password && this.state.email && this.state.result === false) {
             let userLogin = {
                 password: this.state.password,
                 username: this.state.email
@@ -36,6 +51,9 @@ class SignIn extends Component {
     };
 
     render() {
+        if (this.state.result === true) {
+            return false;
+        }
         return (
             <div>
                 <form className="form-signin" onSubmit={(e) => { this.onSubmit(e) }}>

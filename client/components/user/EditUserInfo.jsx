@@ -68,7 +68,6 @@ class EditUserInfo extends Component {
             headers: {
                 'Content-Type': 'multipart/form-data'}
             }).then((res) => {
-                console.log(res);
                 this.setState({
                     message: res.data.result
                 });
@@ -79,7 +78,7 @@ class EditUserInfo extends Component {
 
   onUsernameChange(e) {
     this.setState({
-      username: xss(e.target.value)
+      username: e.target.value
     });
   }
 
@@ -91,7 +90,7 @@ class EditUserInfo extends Component {
 
   onPhotoChange(e) {
     this.setState({
-      fileName: xss(e.target.value),
+      fileName: e.target.value,
       selectedImage: e.target.files[0]
     });
     if (e.target.files && e.target.files[0]) {
