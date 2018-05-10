@@ -78,7 +78,7 @@ export function addRate(data) {
 export function moviesFetchTopRatedData(url) {
   return (dispatch) => {
     var getTopRated = axios.create({
-      baseURL: 'http://localhost:3000/api'
+      baseURL: '/api'
     });
 
     getTopRated.get(url)
@@ -94,7 +94,7 @@ export function moviesFetchTopRatedData(url) {
 export function moviesFetchData(url, searchQuery) {
   return (dispatch) => {
     var getMovie = axios.create({
-      baseURL: 'http://localhost:3000/api'
+      baseURL: '/api'
     });
 
     const request = getMovie.get(url, {
@@ -112,7 +112,7 @@ export function moviesFetchData(url, searchQuery) {
 export function moviesFetchDataById(url, searchQuery) {
   return (dispatch) => {
     var getMovie = axios.create({
-      baseURL: 'http://localhost:3000/api'
+      baseURL: '/api'
     });
 
     const request = getMovie.get(url, {
@@ -130,7 +130,7 @@ export function moviesFetchDataById(url, searchQuery) {
 export function userRegisterFetchResult(url, registerData) {
   return (dispatch) => {
     var getResult = axios.create({
-      baseURL: 'http://localhost:3000/api'
+      baseURL: '/api'
     });
 
     let formData = new FormData();
@@ -153,7 +153,7 @@ export function userRegisterFetchResult(url, registerData) {
 export function userLoginFetchResult(url, loginData) {
   return (dispatch) => {
     var getResult = axios.create({
-      baseURL: 'http://localhost:3000/api'
+      baseURL: '/api'
     });
 
     const request = getResult.post(url, {
@@ -170,7 +170,7 @@ export function userLoginFetchResult(url, loginData) {
 export function addReviewFetchResult(url, reviewData) {
   return (dispatch) => {
     var getResult = axios.create({
-      baseURL: 'http://localhost:3000/api'
+      baseURL: '/api'
     });
 
     const request = getResult.post(url, {
@@ -188,7 +188,7 @@ export function addReviewFetchResult(url, reviewData) {
 export function ReviewFetchDataByMovie(url, searchQuery) {
   return (dispatch) => {
     var getReview = axios.create({
-      baseURL: 'http://localhost:3000/api'
+      baseURL: '/api'
     });
 
     const request = getMovie.get(url, {
@@ -206,7 +206,7 @@ export function ReviewFetchDataByMovie(url, searchQuery) {
 export function ReviewFetchDataByAuthor(url, searchQuery) {
   return (dispatch) => {
     var getReview = axios.create({
-      baseURL: 'http://localhost:3000/api'
+      baseURL: '/api'
     });
 
     const request = getMovie.get(url, {
@@ -224,7 +224,7 @@ export function ReviewFetchDataByAuthor(url, searchQuery) {
 export function addRateFetchResult(url, rateData) {
   return (dispatch) => {
     var getResult = axios.create({
-      baseURL: 'http://localhost:3000/api'
+      baseURL: '/api'
     });
 
     const request = getResult.post(url, {

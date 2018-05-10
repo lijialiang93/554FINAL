@@ -259,14 +259,15 @@ exports = module.exports = function (app) {
 						if (err) throw err;
 						fileName = uuid() + '.' + avatarImage.extension;
 						let writePath = __dirname + '/../public/img/avatar/' + fileName;
+						let originalPath = __dirname + '/../public/img/avatar/' + originalUserData.image.filename;
 						fs.writeFileSync(writePath, stdout, 'binary');
+						fs.unlinkSync(originalPath);
 						receivedUserData.image = {
 							filename: fileName,
 							size: avatarImage.size,
 							mimetype: avatarImage.mimetype
 						};
-						let result = await User.model.updateOne(dbQuery, receivedUserData);
-						console.log(result);
+						await User.model.updateOne(dbQuery, receivedUserData);
 					});
 				}
 				if (receivedUserData.newPassword !== undefined) {
@@ -281,7 +282,9 @@ exports = module.exports = function (app) {
 						if (err) throw err;
 						fileName = uuid() + '.' + avatarImage.extension;
 						let writePath = __dirname + '/../public/img/avatar/' + fileName;
+						let originalPath = __dirname + '/../public/img/avatar/' + originalUserData.image.filename;
 						fs.writeFileSync(writePath, stdout, 'binary');
+						fs.unlinkSync(originalPath);
 						receivedUserData.image = {
 							filename: fileName,
 							size: avatarImage.size,
@@ -472,6 +475,7 @@ exports = module.exports = function (app) {
        		 <div class="react-container">
         </div>
 				<script src="index.bundle.js"></script>
+				<script src="tota11y.min.js"></script>
 			</body>
 		</html>
 		`;
