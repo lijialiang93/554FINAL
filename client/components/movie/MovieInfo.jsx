@@ -45,7 +45,7 @@ class MovieInfo extends Component {
       then(res=>{
         if(res.data.rate!=null)
         this.setState(
-          {rate: res.data.rate
+          {rate: res.data.rate.toFixed(1)
           });
       });
       
@@ -123,7 +123,7 @@ class MovieInfo extends Component {
                     </tr>
                     <tr>
                         <td><h4>Rating:</h4></td>
-                        <td>{data.rating}</td>
+                        <td>{this.state.rate}</td>
                     </tr>
                     <Rate movie={data._id}/>
                     </tbody>

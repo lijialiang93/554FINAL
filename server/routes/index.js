@@ -57,7 +57,6 @@ function checkAuth(req, res, next) {
 }
 
 function checkUserStatus(req, res) {
-	console.log(req.user);
 	if (req.user) return res.json(
 		{
 			signedIn: true,
