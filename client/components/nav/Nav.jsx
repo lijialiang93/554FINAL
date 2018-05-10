@@ -15,7 +15,7 @@ class Nav extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:3000/api/userStatusCheck").then(res => {
+        axios.get("/api/userStatusCheck").then(res => {
             console.log(res);
             this.setState({
                 isLoggedIn: res.data.signedIn,

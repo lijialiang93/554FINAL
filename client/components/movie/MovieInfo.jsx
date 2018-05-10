@@ -24,7 +24,7 @@ class MovieInfo extends Component {
     var tmpData = [];
     let currentUser = sessionStorage.getItem('currentUser');
     axios
-      .get("http://localhost:3000/api/searchMovieById?id=" + id)
+      .get("/api/searchMovieById?id=" + id)
       .then(res => {
         tmpData = res;
         this.setState({
@@ -34,14 +34,14 @@ class MovieInfo extends Component {
         });
       });
     axios
-      .get("http://localhost:3000/api/searchReviewByMovie?movie="+id).
+      .get("/api/searchReviewByMovie?movie="+id).
       then(res=>{
         this.setState(
           {reviewList: res.data.review
           });
       });
     axios
-      .get("http://localhost:3000/api/searchRateByMovie?movie="+id).
+      .get("/api/searchRateByMovie?movie="+id).
       then(res=>{
         if(res.data.rate!=null)
         this.setState(
@@ -131,7 +131,6 @@ class MovieInfo extends Component {
               </div>
           </div>
           <ReviewResult movie={data._id}/>
-
       </div>
     );
   }
