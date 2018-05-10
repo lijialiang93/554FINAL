@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 class AddReviewInput extends Component {
     constructor(props) {
         super(props);
@@ -43,7 +42,9 @@ class AddReviewInput extends Component {
                             id="content"
                             placeholder="Add your review!"
                             cols="120"
-                            rows="3">
+                            rows="3"
+                            maxLength="200"
+                            placeholder="maximum number of characters allowed: 200">
                             </textarea>
                         </div>
                         <div className="col-sm-1">

@@ -29,6 +29,7 @@ class RateResult extends Component {
     render() {
         const renderResult = this.state.result;
         if (renderResult != "" && this.state.success) {
+            window.location.reload();
             return (
                 <td>{renderResult}</td>
             );
