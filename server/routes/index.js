@@ -57,7 +57,14 @@ function checkAuth(req, res, next) {
 }
 
 function checkUserStatus(req, res) {
-	if (req.user) return res.json({ signedIn: true, nickname: req.user.name, userId: req.user._id });
+	console.log(req.user);
+	if (req.user) return res.json(
+		{
+			signedIn: true,
+			nickname: req.user.name,
+			userId: req.user._id,
+			canAccessKeystone:req.user.canAccessKeystone
+		});
 	else return res.json({ signedIn: false });
 }
 
@@ -159,7 +166,7 @@ exports = module.exports = function (app) {
 				res.json(reply);
 			}
 			else {
-				return res.json({ user: "user not found"});
+				return res.json({ user: "user not found" });
 			}
 		} catch (error) {
 			console.log(error);
@@ -214,10 +221,10 @@ exports = module.exports = function (app) {
 					let registerReply = {
 						user: workerResponse
 					};
-					if (registerReply.user.length===1) {
+					if (registerReply.user.length === 1) {
 						res.json({ email: userData.email, message: "registration success!" })
 					}
-					else{
+					else {
 						res.json({ email: userData.email, message: "something went wrong" })
 					}
 
@@ -235,7 +242,7 @@ exports = module.exports = function (app) {
 		try {
 			let receivedUserData = req.body;
 			let avatarImage = req.files.selectedImage;
-			let dbQuery = {email: receivedUserData.email};
+			let dbQuery = { email: receivedUserData.email };
 			let originalUserData = await User.model.findOne(dbQuery);
 			if (originalUserData !== null && receivedUserData !== undefined && avatarImage === undefined) {
 				if (receivedUserData.newPassword === undefined) {
@@ -246,7 +253,7 @@ exports = module.exports = function (app) {
 					await originalUserData.save();
 					await User.model.updateOne(dbQuery, receivedUserData);
 				}
-				return res.json({ result: "Your information has been updated successfully!"});
+				return res.json({ result: "Your information has been updated successfully!" });
 			}
 			else if (originalUserData !== null && receivedUserData !== undefined && avatarImage !== undefined) {
 				if (receivedUserData.newPassword === undefined) {
@@ -294,10 +301,10 @@ exports = module.exports = function (app) {
 						console.log(result);
 					});
 				}
-				return res.json({ result: "Your information has been updated successfully!"});
+				return res.json({ result: "Your information has been updated successfully!" });
 			}
 			else {
-				return res.json({ result: "Something went wrong!"});
+				return res.json({ result: "Something went wrong!" });
 			}
 		} catch (error) {
 			console.log(error);
@@ -313,7 +320,7 @@ exports = module.exports = function (app) {
 				movie: reviewData.movie
 			}).save();
 			res.json({ message: "REVIEW ADD SUCCESSFUL!" });
-			
+
 		} catch (error) {
 			console.log(error);
 		}
@@ -343,7 +350,7 @@ exports = module.exports = function (app) {
 		} catch (error) {
 			console.log(error);
 		}
-		
+
 	});
 
 	app.get('/api/searchReviewByAuthor', async (req, res) => {
@@ -354,7 +361,7 @@ exports = module.exports = function (app) {
 				eventName: "review-data-with-reply",
 				data: {
 					type: "getReviewByAuthor",
-					searchQuery: ({author:req.query.author,movie:req.query.movie})
+					searchQuery: ({ author: req.query.author, movie: req.query.movie })
 				}
 			});
 			let reply = {
@@ -369,7 +376,7 @@ exports = module.exports = function (app) {
 		} catch (error) {
 			console.log(error);
 		}
-		
+
 	});
 
 	app.post('/api/addRate', async (req, res) => {
@@ -390,9 +397,9 @@ exports = module.exports = function (app) {
 					movieId: rateData.movie
 				}
 			});
-			
+
 			res.json({ message: "RATE ADD SUCCESSFUL!" });
-			
+
 		} catch (error) {
 			console.log(error);
 		}
@@ -410,12 +417,12 @@ exports = module.exports = function (app) {
 				}
 			});
 			let sum = 0;
-			for (let i = 0;i<response.length ; i++) {
+			for (let i = 0; i < response.length; i++) {
 				sum = sum + response[i].rate;
 				console.log(response[i].rate);
-			  }
+			}
 
-			let average = sum/(response.length);
+			let average = sum / (response.length);
 			let reply = {
 				rate: average
 			};
@@ -428,7 +435,7 @@ exports = module.exports = function (app) {
 		} catch (error) {
 			console.log(error);
 		}
-		
+
 	});
 
 	app.get('/api/searchRateByAuthor', async (req, res) => {
@@ -439,7 +446,7 @@ exports = module.exports = function (app) {
 				eventName: "rate-data-with-reply",
 				data: {
 					type: "getRateByAuthor",
-					searchQuery: ({author:req.query.author,movie:req.query.movie})
+					searchQuery: ({ author: req.query.author, movie: req.query.movie })
 				}
 			});
 			let reply = {
@@ -454,7 +461,7 @@ exports = module.exports = function (app) {
 		} catch (error) {
 			console.log(error);
 		}
-		
+
 	});
 
 

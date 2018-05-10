@@ -10,17 +10,18 @@ class Nav extends Component {
             login: false,
             username: "",
             userId: null,
-            isLoggedIn: sessionStorage.getItem('loggedIn') === 'true'
+            isLoggedIn: sessionStorage.getItem('loggedIn') === 'true',
+            canAccessKeystone:false
         };
     }
 
     componentDidMount() {
         axios.get("/api/userStatusCheck").then(res => {
-            console.log(res);
             this.setState({
                 isLoggedIn: res.data.signedIn,
                 username: res.data.nickname,
-                userId: res.data.userId
+                userId: res.data.userId,
+                canAccessKeystone:res.data.canAccessKeystone
             });
             sessionStorage.setItem('loggedIn', this.state.isLoggedIn);
         });
@@ -42,7 +43,6 @@ class Nav extends Component {
         if (this.state.isLoggedIn == false){
         return (
             <nav className="text-right" style={{height: '50px'}}>
-                <a href="http://localhost:3000/keystone/signin" target="_blank" className="col-md-1">Log in</a>
                 <Link to={signInPath} className="col-md-1">Sign In</Link>
                 <Link to={registerPath} className="col-md-1">Register</Link>
             </nav>
@@ -51,13 +51,28 @@ class Nav extends Component {
         hashHistory.push(registerPath);
         }
         else {
-            return (
-                <nav className="text-right" style={{height: '50px'}}>
-                    <div>Logged In! {this.state.username} <Link to={viewInfoPath} className="col-md-1">View Personal Info</Link>
-                    <a href="http://localhost:3000/keystone/signout" className="col-md-1">Sign Out</a>
-                    </div>
-                </nav>
-            );
+            if(this.state.canAccessKeystone){
+                return (
+                    <nav className="text-right" style={{height: '50px'}}>
+                        <div>Welcome back! {this.state.username} <Link to={viewInfoPath} className="col-md-1">View Personal Info</Link>
+                        <a href="http://localhost:3000/keystone" target="_blank" className="col-md-1">Manage</a>
+                        <a href="http://localhost:3000/keystone/signout" className="col-md-1">Sign Out</a>
+                        </div>
+                    </nav>
+                );
+                hashHistory.push(viewInfoPath);
+            }
+            else{
+                return (
+                    <nav className="text-right" style={{height: '50px'}}>
+                        <div>Welcome back! {this.state.username} <Link to={viewInfoPath} className="col-md-1">View Personal Info</Link>
+                        <a href="http://localhost:3000/keystone/signout" className="col-md-1">Sign Out</a>
+                        </div>
+                    </nav>
+                );
+                hashHistory.push(viewInfoPath);
+            }
+           
         }
 
     }
