@@ -11,7 +11,7 @@ function SearchResultListEntry({ movie }) {
   return (
     <div className="card mb-3 text-center">
       <Link to={path} target="_blank">
-        <img style={{ width: '300px', height: '300px' }} src={movie.image.filename}></img>
+        <img style={{ width: '300px', height: '300px' }} src={movie.image.filename} alt={movie.name}></img>
       </Link>
       <div className="card-block">
         <p className="card-title">{movie.name}</p>

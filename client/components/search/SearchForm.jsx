@@ -27,7 +27,8 @@ class SearchForm extends Component {
         return (
             <form className="form-horizontal" onSubmit={(e) => { this.onSubmit(e) }}>
                 <div className="form-group row">
-                    <div className="col-sm-11" >
+                <label className='col-form-label'for="movieName"></label>
+                    <div className="col-sm-10" >
                         <input
                             type="text"
                             value={this.state.searchQuery}

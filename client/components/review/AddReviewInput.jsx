@@ -17,7 +17,7 @@ class AddReviewInput extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        
+
         if (this.state.author && this.state.content && this.state.movie) {
             let reviewData = {
                 author: this.state.author,
@@ -25,9 +25,9 @@ class AddReviewInput extends Component {
                 movie: this.state.movie
             };
             this.props.onSubmit(reviewData);
-            
+
         }
-        
+
     };
 
     render() {
@@ -35,20 +35,21 @@ class AddReviewInput extends Component {
             <div>
                 <form className="form-horizontal" onSubmit={(e) => { this.onSubmit(e) }}>
                     <div className="row">
-                        <div className="align-items-center">
+                        <label className='form-label' for='content'>New Review</label>
+                        <div className="align-items-center form-control">
                             <textarea
-                            value={this.state.content}
-                            onChange={(e) => { this.onContentChange(e) }}
-                            id="content"
-                            placeholder="Add your review!"
-                            cols="120"
-                            rows="3"
-                            maxLength="200"
-                            placeholder="maximum number of characters allowed: 200">
+                                value={this.state.content}
+                                onChange={(e) => { this.onContentChange(e) }}
+                                id="content"
+                                placeholder="Add your review!"
+                                cols="120"
+                                rows="3"
+                                maxLength="200"
+                                placeholder="maximum number of characters allowed: 200">
                             </textarea>
                         </div>
                         <div className="col-sm-1">
-                        <button type="submit" className="btn btn-primary btn-sm" id="submitBtn">
+                            <button type="submit" className="btn btn-primary btn-sm" id="submitBtn">
                                 submit
                         </button>
                         </div>

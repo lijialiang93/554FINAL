@@ -94,6 +94,7 @@ class EditUserInfo extends Component {
       fileName: e.target.value,
       selectedImage: e.target.files[0]
     });
+    $('#preview').attr('hidden', false);
     if (e.target.files && e.target.files[0]) {
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -151,7 +152,7 @@ class EditUserInfo extends Component {
                   </tr>
                   </tbody>
               </table>
-              <img className="pb-5" id="preview" />
+              <img className="pb-5" id="preview" alt='newAvatar' hidden/>
               <br />
               <button type="submit" className="btn btn-lg btn-primary btn-block"  id="submitBtn">
               Submit

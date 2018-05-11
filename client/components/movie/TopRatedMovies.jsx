@@ -34,7 +34,7 @@ class TopRatedMovies extends Component {
             return (
                 <div className="pt-5">
                     <div>
-                        <h6>Top Rated Movies</h6>
+                        <h2>Top Rated Movies</h2>
                     </div>
                     <div className="row">
                         {topRatedList.map(movie => {
@@ -48,7 +48,7 @@ class TopRatedMovies extends Component {
                                 <div key={movie._id} className="col-4">
                                     <div className="card mb-3 text-center">
                                         <Link to={path} target="_blank">
-                                            <img style={{ width: '300px', height: '300px' }} src={movie.image.filename}></img>
+                                            <img style={{ width: '300px', height: '300px' }} src={movie.image.filename} alt={movie.name}></img>
                                         </Link>
                                         <div className="card-block">
                                             <p className="card-title">{movie.name}</p>

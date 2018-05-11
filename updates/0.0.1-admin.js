@@ -8,6 +8,11 @@ exports = module.exports = function (done) {
         name: 'admin',
         email: 'admin@keystonejs.com',
         password: 'admin',
+        image: {
+            filename: 'aeb66425-4ab7-44ae-bdd4-276b26ec9da3.png',
+            size: 41487,
+            mimetype: 'image/png'
+        },
         canAccessKeystone: true,
     }).save();
 

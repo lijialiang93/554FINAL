@@ -10,8 +10,8 @@ function ReviewEntry({ review }) {
             <img class="card-img-top" src={review.avatar} alt="Card image cap" />
           </div>
           <div className="col-9">
-            <h5 className="card-title">{review.author}</h5>
-            <h6 className="card-subtitle mb-2 text-muted">{new Date(review.createdAt).toLocaleString()}</h6>
+            <div className="card-title">{review.author}</div>
+            <div className="card-subtitle mb-2 text-muted">{new Date(review.createdAt).toLocaleString()}</div>
           </div>
         </div>
         <p className="card-text">{review.content}</p>

@@ -26,7 +26,7 @@ class ReviewResult extends Component {
                 <div className="pt-5">
                     <hr></hr>
                     <div >
-                        <h4 className="text-center">No Review</h4>
+                        <h2 className="text-center">No Review</h2>
                         <div className='ml-3'>
                         <AddReview movie={this.props.movie} />
                         </div>
@@ -38,7 +38,7 @@ class ReviewResult extends Component {
             return (
                 <div className="pt-5">
                     <hr></hr>
-                    <h4 className="text-center">Reviews</h4>
+                    <h2 className="text-center">Reviews</h2>
                     <div className="row pb-5">
                         {this.state.reviewList.map(review => {
                             return (<div key={review._id} className="col-sm-12 col-md-6 col-lg-4">

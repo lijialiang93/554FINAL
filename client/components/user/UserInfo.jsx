@@ -63,7 +63,7 @@ class UserInfo extends Component {
     return (
       <div className="container pt-5 pb-5" key={data._id}>
           <div className="text-right pb-5">
-              <Link to='/'>Back to Homepage</Link>
+              <Link to='/'>Back to Homepage</Link>&nbsp;&nbsp;
               <Link to={editInfoPath}>Edit User Information</Link>
           </div>
           <div className="row pt-5 border border-primary rounded">
@@ -72,18 +72,18 @@ class UserInfo extends Component {
                 <table>
                     <tbody>
                     <tr>
-                        <td><h4>Email:</h4></td>
+                        <td><h2>Email:</h2></td>
                         <td>{data.email}</td>
                     </tr>
                     <tr>
-                        <td><h4>Username:</h4></td>
+                        <td><h2>Username:</h2></td>
                         <td>{xss(data.name)}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
               <div className="col-sm-4 ">
-                <img style={{ width: "300px", height: "300px" }} src={img} />
+                <img style={{ width: "300px", height: "300px" }} src={img} alt='avatar'/>
               </div>
           </div>
 

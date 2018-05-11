@@ -24,7 +24,7 @@ class AddReView extends Component {
 
     componentWillMount() {
         axios
-      .get("http://localhost:3000/api/searchReviewByAuthor?movie="+this.state.movie+"&author="+this.state.author).
+      .get("/api/searchReviewByAuthor?movie="+this.state.movie+"&author="+this.state.author).
       then(res=>{
         if(res.data.review.length>0)
         this.setState(
@@ -37,7 +37,7 @@ class AddReView extends Component {
         if(this.state.isLoggedIn){
             if(this.state.done){
                 return(
-                    <div className="pb-5"><h6>You have made review</h6></div>
+                    <div className="pb-5">You have made review</div>
                 )
             }else
             return (

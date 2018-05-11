@@ -55,8 +55,8 @@ class Nav extends Component {
                 return (
                     <nav className="text-right" style={{height: '50px'}}>
                         <div>Welcome back! {this.state.username} <Link to={viewInfoPath} className="col-md-1">View Personal Info</Link>
-                        <a href="http://localhost:3000/keystone" target="_blank" className="col-md-1">Manage</a>
-                        <a href="http://localhost:3000/keystone/signout" className="col-md-1">Sign Out</a>
+                        <a href="/keystone" target="_blank" className="col-md-1">Manage</a>
+                        <a href="/keystone/signout" className="col-md-1">Sign Out</a>
                         </div>
                     </nav>
                 );
@@ -66,7 +66,7 @@ class Nav extends Component {
                 return (
                     <nav className="text-right" style={{height: '50px'}}>
                         <div>Welcome back! {this.state.username} <Link to={viewInfoPath} className="col-md-1">View Personal Info</Link>
-                        <a href="http://localhost:3000/keystone/signout" className="col-md-1">Sign Out</a>
+                        <a href="/keystone/signout" className="col-md-1">Sign Out</a>
                         </div>
                     </nav>
                 );
