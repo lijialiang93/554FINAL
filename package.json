@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
     "concurrently": "^3.5.1",
     "fs": "0.0.1-security",
     "imagemagick": "^0.1.3",

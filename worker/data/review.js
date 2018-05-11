@@ -10,13 +10,13 @@ const exportedMethods = {
 
         try {
             let result = await Review.find({ 'movie' : movie });
-            console.log(result);
+
             if (result === null) {
                 return result;
             }
             for (i = 0; i < result.length; i++) {
                 let res = await axios.get('http://localhost:3000/api/getUserAvatarByEmail?email=' + result[i].get('author'));
-                    console.log(res);
+                   
                     if (res.data.image !== false) {
                         result[i].set('avatar', res.data.image);
                         result[i].save();

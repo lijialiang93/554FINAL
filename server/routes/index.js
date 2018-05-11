@@ -11,6 +11,9 @@ const Rate = keystone.list('Rate');
 const importRoutes = keystone.importer(__dirname);
 const redisConnection = require("./redis-connection");
 const nrpSender = require("./nrp-sender-shim");
+const redis = require('redis');
+const promise = require("bluebird");
+const client = promise.promisifyAll(redis.createClient())
 
 function signin(req, res) {
 
@@ -98,6 +101,7 @@ exports = module.exports = function (app) {
 	}),
 		app.get('/api/searchMovie', async function (req, res) {
 			try {
+				
 				let response = await nrpSender.sendMessage({
 					redis: redisConnection,
 					eventName: "send-message-with-reply",
@@ -125,6 +129,18 @@ exports = module.exports = function (app) {
 	app.get('/api/searchMovieById', async (req, res) => {
 
 		try {
+			// get movie from redis cache
+			let redisMovie = await client.getAsync(req.query.id);
+			if(redisMovie){
+				let reply = {
+					movie: JSON.parse(redisMovie)
+				};
+				console.log('Get '+req.query.id+' from redis')
+				res.json(reply)
+				return;
+			}
+
+			console.log('Get '+req.query.id+' from DB')
 			let response = await nrpSender.sendMessage({
 				redis: redisConnection,
 				eventName: "send-message-with-reply",
@@ -137,6 +153,8 @@ exports = module.exports = function (app) {
 				movie: response
 			};
 			if (reply.movie !== null) {
+				//save in redis
+				client.set(req.query.id, JSON.stringify(reply.movie));
 				res.json(reply);
 			}
 			else {
@@ -321,7 +339,6 @@ exports = module.exports = function (app) {
 							mimetype: avatarImage.mimetype
 						};
 						let result = await User.model.updateOne(dbQuery, receivedUserData);
-						console.log(result);
 					});
 				}
 				return res.json({ result: "Your information has been updated successfully!" });
@@ -441,7 +458,7 @@ exports = module.exports = function (app) {
 			let sum = 0;
 			for (let i = 0; i < response.length; i++) {
 				sum = sum + response[i].rate;
-				console.log(response[i].rate);
+				//console.log(response[i].rate);
 			}
 
 			let average = sum / (response.length);
