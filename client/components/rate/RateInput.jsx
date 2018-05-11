@@ -24,11 +24,11 @@ class RateInput extends Component {
                 rate: this.state.rate,
                 movie: this.state.movie
             };
-            console.log(rateData.author+" "+rateData.rate+" "+rateData.movie);
+            console.log(rateData.author + " " + rateData.rate + " " + rateData.movie);
             this.props.onSubmit(rateData);
-            
+
         }
-        
+
     };
 
     render() {
@@ -36,25 +36,25 @@ class RateInput extends Component {
             <div>
                 <form onSubmit={(e) => { this.onSubmit(e) }}>
                     <div className="row">
-                <div className="form-group">
-                    <select className="form-control"
-                        value={this.state.rate}
-                        onChange={(e) => { this.onContentChange(e) }}
-                        id="rate">
-                        <option selected>Rate this movie</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                    </div>
-                        <div className="col-sm-1">
-                <button type="submit" className="btn btn-primary btn-sm" id="rateBtn">
-                        submit
-                </button>
-                            </div>
+                        <div className="form-group ml-3">
+                            <select className="form-control"
+                                value={this.state.rate}
+                                onChange={(e) => { this.onContentChange(e) }}
+                                id="rate">
+                                <option selected>Rate this movie</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                         </div>
+                        <div className="col-sm-1 ml-2 mt-1">
+                            <button type="submit" className="btn btn-primary btn-sm" id="rateBtn">
+                                submit
+                </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         );

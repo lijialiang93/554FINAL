@@ -92,10 +92,10 @@ class MovieInfo extends Component {
     return (
       <div className="container border border-primary rounded" key={data._id}>
         <div className="row pt-5 ">
-          <div className="col-sm-4 pt-5">
+          <div className="col-4 pt-5">
             <img style={{ width: "300px", height: "300px" }} src={img} />
           </div>
-          <div className="col-sm-4 ">
+          <div className="col-8 ">
             <span><h1 className="text-center">{data.name}</h1></span>
             <table>
               <tbody>

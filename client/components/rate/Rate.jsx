@@ -40,14 +40,14 @@ class Rate extends Component {
             if(this.state.done){
                 return(
                     <tr>
-                        <td><h4>Your Rate: </h4></td>
+                        <td><h4>Your Rating: </h4></td>
                         <td>{this.state.rate}</td>
                     </tr>
                 )
             }else
             return (
                 <tr>
-                    <td><h4>New Rate:</h4></td>
+                    <td><h4>Rate this:</h4></td>
                     <td><RateInput onSubmit={this.onSubmit} movie={this.state.movie}></RateInput></td>
                     <RateResult data={this.state.data} ></RateResult>
                 </tr>

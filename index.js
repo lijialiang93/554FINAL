@@ -7,6 +7,7 @@ keystone.init({
 	'name': '554 FINAL',
 	// Paths to our application static files
 	'static': [
+		'./server/public/css/',
 		'./server/public/js/',
 		'./server/public/img/movie',
 		'./server/public/img/avatar',
