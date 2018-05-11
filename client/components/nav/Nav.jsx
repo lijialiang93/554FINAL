@@ -54,7 +54,7 @@ class Nav extends Component {
             if(this.state.canAccessKeystone){
                 return (
                     <nav className="text-right">
-                        <div>Welcome back! {this.state.username} <Link to={viewInfoPath} className="col-md-1">View Personal Info</Link>
+                        <div>Welcome back, {this.state.username} <Link to={viewInfoPath} className="col-md-1">View Personal Info</Link>
                         <a href="/keystone" target="_blank" className="col-md-1">Manage</a>
                         <a href="/keystone/signout" className="col-md-1">Sign Out</a>
                         </div>

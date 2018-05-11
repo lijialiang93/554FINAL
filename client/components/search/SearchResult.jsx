@@ -34,16 +34,20 @@ class SearchResult extends Component {
         console.log(this.state.searched);
         if (movies.length > 0 && this.state.searched) {
             console.log(movies);
-            return <SearchResultList movieList={movies} />;
+            return (<div>
+                <SearchResultList movieList={movies} />
+                <hr></hr>
+            </div>
+            );
         }
-        else if(this.state.searched){
+        else if (this.state.searched) {
             return (
                 <div className='col-10 alert alert-danger'>
                     <h3>Movie Not Found</h3>
                 </div>
             );
         }
-        else{
+        else {
             return false;
         }
     }

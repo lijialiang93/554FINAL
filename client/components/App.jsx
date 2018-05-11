@@ -12,11 +12,11 @@ class App extends Component {
 
     render() {
         return (
-            <div className="container pt-5">
+            <div className="container pt-2">
+                <Nav />
                 <h1 className="text-center">Movie Review System</h1>
-                <Nav/>
                 <SearchIndex />
-                <TopRatedMovies/>
+                <TopRatedMovies />
             </div>
         );
     }
