@@ -13,7 +13,7 @@ class MovieInfo extends Component {
       dataVaild: false,
       movieId: null,
       movieData: null,
-      reviewList:null,
+      reviewList: null,
       user: null,
       rate: "NOT RATED YET"
     };
@@ -34,21 +34,23 @@ class MovieInfo extends Component {
         });
       });
     axios
-      .get("/api/searchReviewByMovie?movie="+id).
-      then(res=>{
+      .get("/api/searchReviewByMovie?movie=" + id).
+      then(res => {
         this.setState(
-          {reviewList: res.data.review
+          {
+            reviewList: res.data.review
           });
       });
     axios
-      .get("/api/searchRateByMovie?movie="+id).
-      then(res=>{
-        if(res.data.rate!=null)
-        this.setState(
-          {rate: res.data.rate.toFixed(1)
-          });
+      .get("/api/searchRateByMovie?movie=" + id).
+      then(res => {
+        if (res.data.rate != null)
+          this.setState(
+            {
+              rate: res.data.rate.toFixed(1)
+            });
       });
-      
+
   }
 
   render() {
@@ -89,49 +91,50 @@ class MovieInfo extends Component {
 
     return (
       <div className="container border border-primary rounded" key={data._id}>
-          <div className="row pt-5 ">
-            <div className="col-sm-4 pt-5">
-                <img style={{ width: "300px", height: "300px" }} src={img} />
-            </div>
-            <div className="col-sm-4 ">
-                <span><h1 className="text-center">{data.name}</h1></span>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td><h4>Director： </h4></td>
-                        <td><div dangerouslySetInnerHTML={createMarkupForDirector()} /></td>
-                    </tr>
-                    <tr>
-                        <td><h4>Genre:  </h4></td>
-                        <td>{data.genre}</td>
-                    </tr>
-                    <tr>
-                        <td><h4>MPAA:  </h4></td>
-                        <td>{data.mpaa}</td>
-                    </tr>
-                    <tr>
-                        <td><h4>Running Time: </h4></td>
-                        <td>{data.runningTime} minutes</td>
-                    </tr>
-                    <tr>
-                        <td><h4>Stars: </h4></td>
-                        <td><div dangerouslySetInnerHTML={createMarkupForStars()} /></td>
-                    </tr>
-                    <tr>
-                        <td><h4>Storyline:  </h4></td>
-                        <td><div dangerouslySetInnerHTML={createMarkupForStoryline()} /></td>
-                    </tr>
-                    <tr>
-                        <td><h4>Rating:</h4></td>
-                        <td>{this.state.rate}</td>
-                    </tr>
-                    <Rate movie={data._id}/>
-                    </tbody>
-                </table>
-              </div>
+        <div className="row pt-5 ">
+          <div className="col-sm-4 pt-5">
+            <img style={{ width: "300px", height: "300px" }} src={img} />
           </div>
-          <ReviewResult movie={data._id}/>
+          <div className="col-sm-4 ">
+            <span><h1 className="text-center">{data.name}</h1></span>
+            <table>
+              <tbody>
+              <tr>
+                <td><h4>Director： </h4></td>
+                <td><div dangerouslySetInnerHTML={createMarkupForDirector()} /></td>
+              </tr>
+              <tr>
+                <td><h4>Genre:  </h4></td>
+                <td>{data.genre}</td>
+              </tr>
+              <tr>
+                <td><h4>MPAA:  </h4></td>
+                <td>{data.mpaa}</td>
+              </tr>
+              <tr>
+                <td><h4>Running Time: </h4></td>
+                <td>{data.runningTime} minutes</td>
+              </tr>
+              <tr>
+                <td><h4>Stars: </h4></td>
+                <td><div dangerouslySetInnerHTML={createMarkupForStars()} /></td>
+              </tr>
+              <tr>
+                <td><h4>Rating:</h4></td>
+                <td>{this.state.rate}</td>
+              </tr>
+              <Rate movie={data._id} />
+            </tbody>
+            </table>
+        </div>
+
+        <div className='col-12'>
+          <h4>Storyline:  </h4>
+          <div dangerouslySetInnerHTML={createMarkupForStoryline()} />
+        </div>
       </div>
+      <ReviewResult movie={data._id} />
+      </div >
     );
   }
 }
