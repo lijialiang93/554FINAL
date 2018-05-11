@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router';
 import axios from "axios";
 import xss from "xss";
 import { connect } from "react-redux";
@@ -107,7 +108,14 @@ class EditUserInfo extends Component {
 
   render() {
     if (this.state.dataVaild == false) {
-      return false;
+      return (<div>Something went wrong when trying to get the user data</div>);
+    }
+    if (this.state.message === 'Your information has been updated successfully!') {
+      return (<div>
+        {this.state.message}
+        <br/>
+        <Link to='/'>Back to Homepage</Link>
+      </div>);
     }
     let data = this.state.originalData;
 

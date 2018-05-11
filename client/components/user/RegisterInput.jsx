@@ -130,7 +130,8 @@ class RegisterInput extends Component {
                         </td>
                         <td>
                             <input
-                                type="text"
+                                type="email"
+                                placeholder="example@example.com"
                                 value={this.state.email}
                                 onChange={(e) => { this.onEmailChange(e) }}
                                 id="email"
