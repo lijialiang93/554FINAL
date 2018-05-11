@@ -35,7 +35,7 @@ class AddReviewInput extends Component {
             <div>
                 <form className="form-horizontal" onSubmit={(e) => { this.onSubmit(e) }}>
                     <div className="row">
-                        <label className='form-label' for='content'>New Review</label>
+                        <label className='form-label' htmlFor='content'>New Review</label>
                         <div className="align-items-center form-control">
                             <textarea
                                 value={this.state.content}

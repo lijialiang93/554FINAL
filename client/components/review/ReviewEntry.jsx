@@ -7,7 +7,7 @@ function ReviewEntry({ review }) {
       <div className="card-body">
         <div className="row">
           <div className="col-3">
-            <img class="card-img-top" src={review.avatar} alt="Card image cap" />
+            <img className="card-img-top" src={review.avatar} alt="Card image cap" />
           </div>
           <div className="col-9">
             <div className="card-title">{review.author}</div>

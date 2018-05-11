@@ -35,10 +35,6 @@ Movie.add({
         options: 'draft, published, archived',
         default: 'draft'
     },
-    author: {
-        type: Types.Relationship,
-        ref: 'User',
-    },
     director: {
         type: Types.Html,
         wysiwyg: true,
@@ -51,7 +47,7 @@ Movie.add({
     },
     genre: {
         type: Types.Select,
-        options: 'Action, Adventure, Sci-fi',
+        options: 'Action, Adventure, Animation, Comedy, Crime, Fantasy, Horror, Sci-fi',
     },
     runningTime: {
         type: Types.Number,
