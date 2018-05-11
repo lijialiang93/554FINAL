@@ -377,6 +377,19 @@ exports = module.exports = function (app) {
 					searchQuery: req.query.movie
 				}
 			});
+			for (i = 0; i < response.length; i++) {
+				let avatarResponse = await nrpSender.sendMessage({
+					redis: redisConnection,
+					eventName: "user-data-with-reply",
+					data: {
+						type: "getUserByEmail",
+						searchQuery: response[i].author
+					}
+				});
+				if (avatarResponse !== null && avatarResponse[0].image !== undefined) {
+					response[i].avatar = avatarResponse[0].image.filename;
+				}
+			}
 			let reply = {
 				review: response
 			};

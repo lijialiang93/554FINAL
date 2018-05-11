@@ -9,20 +9,7 @@ const exportedMethods = {
     async getReviewByMovie(movie) {
 
         try {
-            let result = await Review.find({ 'movie' : movie });
-
-            if (result === null) {
-                return result;
-            }
-            for (i = 0; i < result.length; i++) {
-                let res = await axios.get('http://localhost:3000/api/getUserAvatarByEmail?email=' + result[i].get('author'));
-                   
-                    if (res.data.image !== false) {
-                        result[i].set('avatar', res.data.image);
-                        result[i].save();
-                    }
-            }
-            return result;
+            return await Review.find({ 'movie' : movie });
         } catch (error) {
             console.log(error);
         }
