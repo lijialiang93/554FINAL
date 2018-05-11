@@ -44,7 +44,7 @@ const exportedMethods = {
     async getTopRatedMovies(number) {
 
         try {
-            return await Movie.find({}).sort('-rating').limit(number);
+            return await Movie.find({ 'state': 'published' }).sort('-rating').limit(number);
         } catch (error) {
             console.log(error);
         }
@@ -53,7 +53,11 @@ const exportedMethods = {
     async getMovieByName(name) {
 
         try {
-            return await Movie.find({ 'name': { $regex: new RegExp(name, "i") } });
+            return await Movie.find(
+                {
+                    'name': { $regex: new RegExp(name, "i") },
+                    'state': 'published'
+                });
         } catch (error) {
             console.log(error);
         }
@@ -62,7 +66,7 @@ const exportedMethods = {
 
     async getMovieById(id) {
         try {
-            return await Movie.findOne({ '_id': id });
+            return await Movie.findOne({ '_id': id, 'state': 'published' });
         } catch (error) {
             console.log(error);
         }
