@@ -42,7 +42,7 @@ class Nav extends Component {
         };
         if (this.state.isLoggedIn == false){
         return (
-            <nav className="text-right" style={{height: '50px'}}>
+            <nav className="text-right">
                 <Link to={signInPath} className="col-md-1">Sign In</Link>
                 <Link to={registerPath} className="col-md-1">Register</Link>
             </nav>
@@ -53,7 +53,7 @@ class Nav extends Component {
         else {
             if(this.state.canAccessKeystone){
                 return (
-                    <nav className="text-right" style={{height: '50px'}}>
+                    <nav className="text-right">
                         <div>Welcome back! {this.state.username} <Link to={viewInfoPath} className="col-md-1">View Personal Info</Link>
                         <a href="/keystone" target="_blank" className="col-md-1">Manage</a>
                         <a href="/keystone/signout" className="col-md-1">Sign Out</a>
@@ -64,7 +64,7 @@ class Nav extends Component {
             }
             else{
                 return (
-                    <nav className="text-right" style={{height: '50px'}}>
+                    <nav className="text-right" >
                         <div>Welcome back! {this.state.username} <Link to={viewInfoPath} className="col-md-1">View Personal Info</Link>
                         <a href="/keystone/signout" className="col-md-1">Sign Out</a>
                         </div>

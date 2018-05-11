@@ -32,11 +32,11 @@ class AddReviewInput extends Component {
 
     render() {
         return (
-            <div>
-                <form className="form-horizontal" onSubmit={(e) => { this.onSubmit(e) }}>
+            <div className="row">
+                <label for='content'>New Review</label>
+                <form className="form-horizontal ml-3" onSubmit={(e) => { this.onSubmit(e) }}>
                     <div className="row">
-                        <label className='form-label' htmlFor='content'>New Review</label>
-                        <div className="align-items-center form-control">
+                        <div className="align-items-center">
                             <textarea
                                 value={this.state.content}
                                 onChange={(e) => { this.onContentChange(e) }}
@@ -48,7 +48,7 @@ class AddReviewInput extends Component {
                                 placeholder="maximum number of characters allowed: 200">
                             </textarea>
                         </div>
-                        <div className="col-sm-1">
+                        <div className="col-sm-1 mt-4">
                             <button type="submit" className="btn btn-primary btn-sm" id="submitBtn">
                                 submit
                         </button>

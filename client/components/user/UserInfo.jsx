@@ -83,7 +83,7 @@ class UserInfo extends Component {
                 </table>
             </div>
               <div className="col-sm-4 ">
-                <img style={{ width: "300px", height: "300px" }} src={img} alt='avatar'/>
+                <img id='userAvatar' src={img} alt='avatar'/>
               </div>
           </div>
 

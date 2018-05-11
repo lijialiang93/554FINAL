@@ -48,7 +48,7 @@ class TopRatedMovies extends Component {
                                 <div key={movie._id} className="col-4">
                                     <div className="card mb-3 text-center">
                                         <Link to={path} target="_blank">
-                                            <img style={{ width: '300px', height: '300px' }} src={movie.image.filename} alt={movie.name}></img>
+                                            <img  className="card-img-top" id="moviePoster" src={movie.image.filename} alt={movie.name}></img>
                                         </Link>
                                         <div className="card-block">
                                             <p className="card-title">{movie.name}</p>
