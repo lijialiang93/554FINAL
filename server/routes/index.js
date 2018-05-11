@@ -172,6 +172,30 @@ exports = module.exports = function (app) {
 		}
 	});
 
+	app.get('/api/getUserAvatarByEmail', async (req, res) => {
+		try {
+			let response = await nrpSender.sendMessage({
+				redis: redisConnection,
+				eventName: "user-data-with-reply",
+				data: {
+					type: "getUserByEmail",
+					searchQuery: req.query.email
+				}
+			});
+			let reply = {
+				image: response[0].image.filename
+			};
+			if (reply.image !== null) {
+				res.json(reply);
+			}
+			else {
+				return res.json({ image: false });
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	});
+
 	app.post('/api/userRegister', async (req, res) => {
 		try {
 			let userData = req.body;
@@ -336,7 +360,6 @@ exports = module.exports = function (app) {
 					searchQuery: req.query.movie
 				}
 			});
-
 			let reply = {
 				review: response
 			};
