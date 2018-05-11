@@ -33,27 +33,24 @@ class AddReviewInput extends Component {
     render() {
         return (
             <div className="row">
-                <label for='content'>New Review</label>
                 <form className="form-horizontal ml-3" onSubmit={(e) => { this.onSubmit(e) }}>
-                    <div className="row">
-                        <div className="align-items-center">
-                            <textarea
-                                value={this.state.content}
-                                onChange={(e) => { this.onContentChange(e) }}
-                                id="content"
-                                placeholder="Add your review!"
-                                cols="120"
-                                rows="3"
-                                maxLength="200"
-                                placeholder="maximum number of characters allowed: 200">
-                            </textarea>
-                        </div>
-                        <div className="col-sm-1 mt-4">
-                            <button type="submit" className="btn btn-primary btn-sm" id="submitBtn">
-                                submit
-                        </button>
-                        </div>
+                    <div className="form-group">
+                        <label for='content'>New Review</label>
+                        <textarea
+                            className="form-control"
+                            value={this.state.content}
+                            onChange={(e) => { this.onContentChange(e) }}
+                            id="content"
+                            placeholder="Add your review!"
+                            cols="120"
+                            rows="3"
+                            maxLength="200"
+                            placeholder="maximum number of characters allowed: 200">
+                        </textarea>
                     </div>
+                    <button type="submit" className="btn btn-primary btn-sm" id="submitBtn">
+                        submit
+                    </button>
                 </form>
             </div>
         );

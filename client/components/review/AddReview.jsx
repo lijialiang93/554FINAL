@@ -37,7 +37,7 @@ class AddReView extends Component {
         if(this.state.isLoggedIn){
             if(this.state.done){
                 return(
-                    <div className="pb-5">You have made review</div>
+                    <div className="pb-5">You can't comment twice! </div>
                 )
             }else
             return (
