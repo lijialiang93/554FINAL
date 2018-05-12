@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/554tf');
+mongoose.connect('mongodb://localhost/554_final_travelfrogs');
 let movieSchema = new mongoose.Schema({}, { strict: false });
 let Movie = mongoose.model('Movie', movieSchema);
 

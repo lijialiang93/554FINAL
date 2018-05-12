@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
-mongoose.connect('mongodb://localhost/554tf');
+mongoose.connect('mongodb://localhost/554_final_travelfrogs');
 let reviewSchema = new mongoose.Schema({}, { strict: false });
 let Review = mongoose.model('Review', reviewSchema);
 
