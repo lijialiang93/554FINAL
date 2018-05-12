@@ -43,7 +43,6 @@ class SignInResult extends Component {
 
 
     render() {
-        console.log(this.state);
         if (this.state.success !== undefined && this.state.userId !== null) {
             let path = {
                 pathname: '/',

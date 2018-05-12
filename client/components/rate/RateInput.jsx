@@ -24,7 +24,6 @@ class RateInput extends Component {
                 rate: this.state.rate,
                 movie: this.state.movie
             };
-            console.log(rateData.author + " " + rateData.rate + " " + rateData.movie);
             this.props.onSubmit(rateData);
 
         }

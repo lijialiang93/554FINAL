@@ -3,13 +3,11 @@ const pathPlug = require("path");
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
-// Create a new Keystone list called Recipe
 var Movie = new keystone.List('Movie', {
     autokey: { path: 'slug', from: 'name', unique: true },
     defaultSort: '-createdAt',
 });
 
-// Adding the option to add an image to our Recipe from
 var movieImgStorage = new keystone.Storage({
     adapter: keystone.Storage.Adapters.FS,
     fs: {
@@ -24,7 +22,6 @@ var movieImgStorage = new keystone.Storage({
     },
 });
 
-// Finally we are gonna add the fields for our Recipe
 Movie.add({
     name: {
         type: String,
@@ -33,55 +30,71 @@ Movie.add({
     state: {
         type: Types.Select,
         options: 'draft, published, archived',
-        default: 'draft'
+        default: 'draft',
+        required: true
     },
     director: {
         type: Types.Html,
         wysiwyg: true,
         height: 150,
+        initial: false,
+        required: true
     },
     stars: {
         type: Types.Html,
         wysiwyg: true,
         height: 150,
+        initial: false,
+        required: true
     },
     genre: {
         type: Types.Select,
         options: 'Action, Adventure, Animation, Comedy, Crime, Fantasy, Horror, Sci-fi',
+        initial: false,
+        required: true
     },
     runningTime: {
         type: Types.Number,
+        initial: false,
+        required: true
     },
     mpaa: {
         type: Types.Select,
         options: 'G, PG, PG-13, R, NC-17',
+        initial: false,
+        required: true
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        initial: false,
+        required: true
     },
-    releaseDate: Date,
     image: {
         type: Types.File,
         storage: movieImgStorage,
         mimetype: '.jpeg, .jpg, .gif, .svg',
+        initial: false,
+        required: true
     },
     storyline: {
         type: Types.Html,
         wysiwyg: true,
         height: 500,
+        initial: false,
+        required: true
     },
     rating: {
         type: Number,
-        hidden:true
+        hidden: true
     },
     totalRating: {
         type: Number,
-        hidden:true
+        hidden: true
     },
     totalRatedPeople: {
         type: Number,
-        hidden:true
+        hidden: true
     }
 });
 

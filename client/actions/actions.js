@@ -142,8 +142,6 @@ export function userRegisterFetchResult(url, registerData) {
         'Content-Type': 'multipart/form-data'}
     });
 
-    // const request = getResult.post(url, registerData);
-
     request.then((response) => {
       dispatch(userRegister(response.data));
     });
