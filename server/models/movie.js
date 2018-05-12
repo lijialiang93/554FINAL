@@ -37,63 +37,53 @@ Movie.add({
         type: Types.Html,
         wysiwyg: true,
         height: 150,
-        initial: false,
-        required: true
     },
     stars: {
         type: Types.Html,
         wysiwyg: true,
         height: 150,
-        initial: false,
-        required: true
     },
     genre: {
         type: Types.Select,
         options: 'Action, Adventure, Animation, Comedy, Crime, Fantasy, Horror, Sci-fi',
-        initial: false,
+        default: "Action",
         required: true
     },
     runningTime: {
         type: Types.Number,
-        initial: false,
-        required: true
+        default: 0,
     },
     mpaa: {
         type: Types.Select,
         options: 'G, PG, PG-13, R, NC-17',
-        initial: false,
-        required: true
     },
     createdAt: {
         type: Date,
         default: Date.now,
-        initial: false,
-        required: true
     },
     image: {
         type: Types.File,
         storage: movieImgStorage,
         mimetype: '.jpeg, .jpg, .gif, .svg',
-        initial: false,
-        required: true
     },
     storyline: {
         type: Types.Html,
         wysiwyg: true,
         height: 500,
-        initial: false,
-        required: true
     },
     rating: {
         type: Number,
+        default:0,
         hidden: true
     },
     totalRating: {
         type: Number,
+        default:0,
         hidden: true
     },
     totalRatedPeople: {
         type: Number,
+        default:0,
         hidden: true
     }
 });
